@@ -14,29 +14,27 @@
 // This handles all the swiping between each page. You really
 // needn't understand it all.
 $(document).on('pageshow', 'div:jqmData(role="page")', function(){
-
-     var page = $(this), nextpage, prevpage;
-     // check if the page being shown already has a binding
-      if ( page.jqmData('bound') != true ){
-            // if not, set blocker
-            page.jqmData('bound', true)
-            // bind
-                .on('swipeleft.paginate', function() {
-                    console.log("binding to swipe-left on "+page.attr('id'));
-                    nextpage = page.next('div[data-role="page"]');
-                    if (nextpage.length > 0) {
-                       $.mobile.changePage(nextpage,{transition: "slide"}, false, true);
-                        }
-                    })
-                .on('swiperight.paginate', function(){
-                    console.log("binding to swipe-right "+page.attr('id'));
-                    prevpage = page.prev('div[data-role="page"]');
-                    if (prevpage.length > 0) {
-                        $.mobile.changePage(prevpage, {transition: "slide",
-	reverse: true}, true, true);
-                        };
-                     });
+	var page = $(this), nextpage, prevpage;
+	// check if the page being shown already has a binding
+	if ( page.jqmData('bound') != true ) {
+		// if not, set blocker
+		page.jqmData('bound', true)
+		// bind
+		.on('swipeleft.paginate', function() {
+			console.log("binding to swipe-left on "+page.attr('id'));
+            nextpage = page.next('div[data-role="page"]');
+            if (nextpage.length > 0) {
+                $.mobile.changePage(nextpage,{transition: "slide"}, false, true);
             }
-        });
+        })
+		.on('swiperight.paginate', function(){
+			console.log("binding to swipe-right "+page.attr('id'));
+			prevpage = page.prev('div[data-role="page"]');
+			if (prevpage.length > 0) {
+				$.mobile.changePage(prevpage, {transition: "slide", reverse: true}, true, true);
+	        };
+   		});
+    }
+});
 
 </script>
