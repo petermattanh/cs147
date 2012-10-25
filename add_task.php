@@ -1,5 +1,5 @@
 
-<div data-role="page" id="addtask" data-add-back-btn="true">
+<div data-role="page" id="addtask" class="buttonNav" data-add-back-btn="true">
 
 	<div data-role="header">
 		<h1>Add task!</h1>

@@ -1,5 +1,5 @@
 
-<div data-role="page" id="time" data-add-back-btn="true">
+<div data-role="page" id="time" class="buttonNav" data-add-back-btn="true">
 
 	<div data-role="header">
 		<h1>I HAVE TIME!</h1>

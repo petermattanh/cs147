@@ -1,5 +1,5 @@
 
-<div data-role="page" id="settings" data-add-back-btn="true">
+<div data-role="page" id="settings" class="buttonNav" data-add-back-btn="true">
 
 	<div data-role="header">
 		<h1>Settings</h1>
