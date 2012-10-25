@@ -1,0 +1,4 @@
+/* Put Time hacks styles and override all jquery mobile styles here */
+.pageButton {
+	text-transform: uppercase;
+}
