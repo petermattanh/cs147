@@ -12,7 +12,6 @@
 	<div data-role="content">	
 		<ul id="pages">
 			<li><a href="#time" class="pageButton" data-role="button">I have time!</a></li>
-			<li><a href="#addtask" class="pageButton" data-role="button">Add a task!</a></li>
 			<li><a href="#settings" class="pageButton" data-role="button">Settings</a></li>
 			<li><a href="#exit" class="pageButton" data-role="button">Exit</a></li>
 		</ul>
@@ -25,9 +24,6 @@
 	what goes in content using the DOM object -->
 <!-- I have time! page -->
 <?php include('time.php'); ?>
-
-<!-- Add a task! page -->
-<?php include('add_task.php'); ?>
 
 <!-- Settings page -->
 <?php include('settings.php'); ?>

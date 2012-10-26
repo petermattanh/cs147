@@ -1,1 +1,1 @@
-/* Javascript functions go here *?
+/* Javascript functions go here */
