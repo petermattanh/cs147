@@ -6,7 +6,7 @@
 <!-- Start of home page: #home -->
 <div data-role="page" id="home">
 	<div data-role="header">
-		<h1>Time Hacks</h1>
+		<h1>Blist</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">	
