@@ -14,6 +14,6 @@
 
 	<script src="js/jquery-1.8.2.min.js"></script>
 	<script src="js/jquery.mobile-1.2.0.js"></script>
+	<script src="js/jquery.cookie.js"></script>
 	<script src="js/script.js"></script>
-
 </head> 
