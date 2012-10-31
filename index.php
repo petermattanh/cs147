@@ -1,4 +1,15 @@
 <!DOCTYPE html> 
+<?php
+	if($_COOKIE["user"]) {
+		print_r($_COOKIE["user"]);
+		die();
+		// make queries and show normal buttons
+	} else {
+		// redirect to register
+	}
+
+?>
+
 <html>
 <?php include('header.php'); ?>	
 <body> 
