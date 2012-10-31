@@ -13,6 +13,8 @@
 <script type="text/javascript">
 // This handles all the swiping between each page. You really
 // needn't understand it all.
+	//Need to get rid of swipe events!
+	/*
 $(document).on('pageshow', 'div:jqmData(role="page")', function(){
 	var page = $(this), nextpage, prevpage;
 	// check if the page being shown already has a binding
@@ -35,6 +37,23 @@ $(document).on('pageshow', 'div:jqmData(role="page")', function(){
 	        };
    		});
     }
-});
+});*/
+
+/* 
+You can initialize a cookie as below
+$.cookie('cookieName', 'cookieValue');
+
+You can remove a cookie as below
+$.removeCookie('username');
+*/
+
+
+/* The script below will insert the username wherever it finds the
+ * #username id */
+if($.cookie('username') != null){//This checks whether the username cookie exists.
+	$('#username').text($.cookie('username'));
+} else {
+	$('#username').text("ERROR: NO USERNAME FOUND");
+}
 
 </script>
