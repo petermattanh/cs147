@@ -1,5 +1,10 @@
+<?php
+	$title = "Blist";
+	include_once 'php/simplehtmldom/simple_html_dom.php';
+?>
+
 <head>
-	<title>Time Hacks</title> 
+	<title><?php echo $title; ?></title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">

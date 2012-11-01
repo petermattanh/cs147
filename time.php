@@ -1,7 +1,6 @@
+<div data-theme="b" data-role="page" id="time" class="buttonNav" data-add-back-btn="true">
 
-<div data-role="page" id="time" class="buttonNav" data-add-back-btn="true">
-
-	<div data-role="header">
+	<div data-role="header" data-theme="b">
 		<h1>I HAVE TIME!</h1>
 	</div><!-- /header -->
 
@@ -20,9 +19,9 @@
 </div>
 
 
-<div data-role="page" id="task" class="buttonNav" data-add-back-btn="true">
+<div data-role="page" data-theme="b" id="task" class="buttonNav" data-add-back-btn="true">
 
-	<div data-role="header">
+	<div data-role="header" data-theme="b">
 		<h1>Watching Jesus Counter Youtube video</h1>
 	</div><!-- /header -->
 

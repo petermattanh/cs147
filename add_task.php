@@ -1,6 +1,6 @@
-<div data-role="page" id="addtask" class="buttonNav" data-add-back-btn="true">
+<div data-role="page" data-theme="b" id="addtask" class="buttonNav" data-add-back-btn="true">
 
-	<div data-role="header">
+	<div data-role="header" data-theme="b">
 		<h1>Add task!</h1>
 	</div><!-- /header -->
 

@@ -1,7 +1,6 @@
+<div data-theme="b" data-role="page" id="settings" class="buttonNav" data-add-back-btn="true">
 
-<div data-role="page" id="settings" class="buttonNav" data-add-back-btn="true">
-
-	<div data-role="header">
+	<div data-role="header" data-theme="b">
 		<h1>Settings</h1>
 	</div><!-- /header -->
 
