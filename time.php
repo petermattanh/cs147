@@ -12,7 +12,7 @@
 		$videoId = $row['videoID'];
 		$videoUrl = $row['url'];
 		$timeLeft = intval($row['duration']);
-		$videoHtml = '<iframe width="250" height="125" src="http://www.youtube.com/embed/'.$videoId.'" frameborder="0" allowfullscreen></iframe>';
+		$videoHtml = '<iframe width="420" height="315" src="http://www.youtube.com/embed/'.$videoId.'" frameborder="0" allowfullscreen></iframe>';
 
 	?>
 	<div data-role="header" data-theme="b">

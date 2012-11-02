@@ -9,8 +9,8 @@
 		<h1>BLiST LogIn</h1>
 	</div><!-- /header -->
 	<?php
-		if(isset($_SESSION['error']) {
-			echo "<p> $_SESSION['error'] </p>";
+		if(isset($_SESSION['error'])) {
+			echo '<p> '.$_SESSION['error'].'</p>';
 		}
 	?>
 	<div data-role="content">
@@ -23,7 +23,7 @@
 			<label>Password: <input type="password" name="password" autocapitalize="off" /></label>
     	</div>
 		
-		<input type="submit" name="Submit" value="Log In&raquo;" />
+		<input type="submit" name="Submit" value="Log In&raquo;" data-disabled="false"/>
 	    	
 		</form>	
 		<p>New to BLiST? Sign up <a href='register.php'>here</a>!</p>
