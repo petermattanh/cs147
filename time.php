@@ -1,7 +1,10 @@
 <div data-role="page" data-theme="b" id="task" class="buttonNav" data-add-back-btn="true">
 	<?php include_once('../connect.php'); 
 		//$queryW = "SELECT * FROM washingtonpost WHERE duration <='15'";
-		$query = "SELECT * FROM youtube";
+		srand(time()); // seed shizz
+		$videoNum = rand(1, 6);
+
+		$query = "SELECT * FROM youtube WHERE id=$videoNum";
 		$query = mysql_query($query, $con);
 
 		$row = mysql_fetch_assoc($query);
@@ -13,7 +16,7 @@
 
 	?>
 	<div data-role="header" data-theme="b">
-		<h1>Watching Jesus Counter Youtube video</h1>
+		<h1>Watching Youtube</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">	
