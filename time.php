@@ -1,3 +1,4 @@
+<?php /*
 <div data-theme="b" data-role="page" id="time" class="buttonNav" data-add-back-btn="true">
 
 	<div data-role="header" data-theme="b">
@@ -16,7 +17,7 @@
 	</div><!-- /content -->
 	
 	<?php include('footer.php'); ?>
-</div>
+</div> */ ?>
 
 
 <div data-role="page" data-theme="b" id="task" class="buttonNav" data-add-back-btn="true">
