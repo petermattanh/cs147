@@ -8,21 +8,14 @@
 	
 	$_COOKIE['timeblock'] which should be a serialized array of time blocks
 */
-	$expire = time()+60*60*24*30; // a month
-	$array = array(
-		"init" => true,
-		"user_id" => 'test');
-	setcookie('user', serialize($array), $expire);
-	setcookie('timeblock', null);
-
 	if(isset($_COOKIE['user'])) {
 		$userData = unserialize(stripslashes($_COOKIE['user']));
 
 		if($userData['init']) {
-			include_once('connect.php');
+			include_once('../connect.php');
 			$timeblocks;
 
-			// start session to store username
+			// start session to store username and relevant data
 			session_start();
 
 			$query = 'SELECT * FROM users WHERE id="'. $userData['user_id'] .'"';
@@ -39,21 +32,18 @@
 			$_SESSION['username'] = $row['username'];
 			$_SESSION['data'] = unserialize(stripslashes($row['cookie']));
 			$_SESSION['list'] = unserialize(stripslashes($row['list']));
-
-			// user already has cookie and initialized
-			if(!isset($_COOKIE['timeblock'])) {
-				$timeblocks = unserialize(stripslashes($row['timeblock']));
-			} else {
-				$timeblocks = unserialize(stripslashes($_COOKIE['timeblock']));
+			$timeblocks = unserialize(stripslashes($row['timeblock']));
+			if(!$timeblocks) {
+				$timeblocks = array(5, 10, 15); // set default time blocks
 			}
 			// timeblocks should be an array of times
 
 			$timeBlockHtml = '<ul id="pages">';
 			for($i=0; $i < count($timeblocks); $i++) {
-				$timeBlockHtml .= '<li><a href="#task" class="pageButton" data-role="button">';
+				$timeBlockHtml .= '<li><a href="#task" class="pageButton" data-role="button" onclick="setTimeLeft(timeBlock[i])">';
 				$timeBlockHtml .= 'I have ' . $timeblocks[$i] . ' minutes!</a></li>';
 			}	
-
+	
 			$timeBlockHtml .= '</ul>';
 
 		} else {

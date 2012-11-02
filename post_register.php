@@ -3,9 +3,9 @@
 
 	// there's no santizing forms... i'm too lazy
 	// no salt and hash either =O
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-
+	$username = $_POST["username"];
+	$password = $_POST["password"];
+	
 	$list = array();
 
 	// checks if washingtonpost checkbox was checked
@@ -21,9 +21,9 @@
 	// timeblock array, if your settings form modifies gives users the option
 	// of adding their own timeblock, $timeBlocks should be modified
 	$timeBlocks    = array(5, 10); // time blocks of 5 and 10 minutes
-	$timeBlocksStr = serialize($timeBlocks);
 	$listStr       = serialize($list);
-
+	$timeBlocks[]  = $_POST['timeblock'];
+	$timeBlocksStr = serialize($timeBlocks);
 	$query = "INSERT INTO users(username, password, list, timeblock)
 	VALUES ('$username', '$password', '$listStr', '$timeBlocksStr')";
 	$query = mysql_query($query, $con);
@@ -51,11 +51,9 @@
 	$query = "UPDATE users SET cookie='$userDataStr' WHERE id=$userId";
 	$query = mysql_query($query, $con);
 	if(!$query) die('Error: ' . mysql_error());
+	$expire = time()+60*60*24*30; // a month
 
-
-	echo 'successsss';
+	setcookie('user', $userDataStr, $expire);
 	// redirect back to home page
-	//header('Location: index.php');
-
-
+	header('Location: index.php');
 ?>

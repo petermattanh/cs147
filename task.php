@@ -32,25 +32,35 @@
 		 * minutes, so we'll need to go through several of the results. */
 		/* The functionality in cookies is unimplemented, so
 		 * here is the pseudocode that can be done in php. */
-		 GET highestRatedCategory //OR SORT results BY rating
+		 /*GET highestRatedCategory //OR SORT results BY rating
 		 FOREACH entry IN category
 		 ECHO embeddedContent
-		 PAUSE FOR duration //OR WAIT FOR nextButtonClicked
+		 PAUSE FOR duration //OR WAIT FOR nextButtonClicked*/
 		 
 		 /* Here is what you would echo for youtube */
-		 "<iframe width='420' height='315' 
+		/* "<iframe width='420' height='315' 
 		 src='http://www.youtube.com/embed/".$row['videoID']." frameborder='0' 
-		 allowfullscreen></iframe>";
+		 allowfullscreen></iframe>";*/
 		 	
 ?>
 
-<div data-role="page" data-theme="b" id="home">
+<div data-role="page" data-theme="b" id="task">
 	<div data-role="header" data-theme="b">
 		<h1><?php echo $title; ?></h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
 		<h2>Welcome <?php echo $_SESSION['username']; ?> </h2>
+		<?php
+			$result = mysql_query($queryY);
+			if($row = mysql_fetch_assoc($result))
+			//echo "<iframe>".$row["url"]."<iframe>";
+			echo "<iframe width='420' height='315' 
+			 src='http://www.youtube.com/embed/".$row['videoID']." frameborder='0' 
+			 allowfullscreen></iframe>"
+			}
+		
+		?>
 		
 		
 		
