@@ -7,49 +7,62 @@
 		- init (boolean that tells you whether the user has initialized and set up yet)
 	
 	$_COOKIE['timeblock'] which should be a serialized array of time blocks
-
 */
+
 	if(isset($_COOKIE['user'])) {
-		$userData = unserialize($_COOKIE['user']);
-		include('connect.php');
-		
+		$userData = unserialize(stripslashes($_COOKIE['user']));
 
 		if($userData['init']) {
+			include_once('../connect.php');
+			$timeblocks;
+
+			// start session to store username
+			session_start();
+
+			$query = 'SELECT * FROM users WHERE id="'. $userData['user_id'] .'"';
+			$query = mysql_query($query, $con);
+
+			if(!$query) {
+				$_SESSION['error'] = 'Error: Malformed cookie, no user exists in database by id of ' . $userData['user_id'];
+				die('ERROR');
+				header('Location: register.php');
+			}
+
+			// should only be one row
+			$row = mysql_fetch_array($query);
+			$_SESSION['username'] = $row['username'];
+			$_SESSION['data'] = unserialize(stripslashes($row['cookie']));
+			$_SESSION['list'] = unserialize(stripslashes($row['list']));
+
 			// user already has cookie and initialized
-			$timeblocks = unserialize($_COOKIE['timeblock']);
+			if(!isset($_COOKIE['timeblock'])) {
+				$timeblocks = unserialize(stripslashes($row['timeblock']));
+			} else {
+				$timeblocks = unserialize(stripslashes($_COOKIE['timeblock']));
+			}
 			// timeblocks should be an array of times
 
 			$timeBlockHtml = '<ul id="pages">';
 			for($i=0; $i < count($timeblocks); $i++) {
 				$timeBlockHtml .= '<li><a href="#task" class="pageButton" data-role="button">';
 				$timeBlockHtml .= 'I have ' . $timeblocks[$i] . ' minutes!</a></li>';
-			}
+			}	
 
 			$timeBlockHtml .= '</ul>';
 
 		} else {
 			// not initialized yet
-			header('Location: initialize.php');
+			// cookie should already be made, can fill up data and stuff there
+			header('Location: register.php');
 		}
 	} else {
 		$expire = time()+60*60*24*30; // a month
-		/*
 		$array = array(
 			"init" => false,
 			"user_id" => NULL);
 		setcookie('user', serialize($array), $expire);
-		header('Location: register.php');
-		*/
-
-		$array = array(
-			"init" => true,
-			"user_id" => 5);
-		$timeblock = array(5, 10, 15);
-		setcookie('user', serialize($array), $xpire);
-		setcookie('timeblock', serialize($timeblock), $expire);
-		header('Location: index.php');
+		header('Location: register.php'); // should provide a login
 	}
-	
 ?>
 <!DOCTYPE html> 
 <html>
@@ -63,25 +76,15 @@
 	</div><!-- /header -->
 
 	<div data-role="content">
-		<h2>Welcome <span id="username"></span></h2>
+		<h2>Welcome <?php echo $_SESSION['username']; ?> </h2>
 	<?php
 		echo $timeBlockHtml;
-		/*
-		<ul id="pages">		
-			<li><a href="#task" class="pageButton" data-role="button">I have 5 minutes!</a></li>
-			<li><a href="#task" class="pageButton" data-role="button">I have 10 minutes!</a></li>
-			<li><a href="#task" class="pageButton" data-role="button">I have 15 minutes!</a></li>
-		</ul>
-		*/
 	?>
 	</div><!-- /content -->
 	<?php include('footer.php'); ?>
 </div>
 <!-- End of home page -->
 
-<!-- maybe instead of including all of these pages, we can just update
-	what goes in content using the DOM object -->
-<!-- I have time! page -->
 <?php include('time.php'); ?>
 
 <!-- Settings page -->
