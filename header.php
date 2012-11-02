@@ -1,5 +1,5 @@
 <?php
-	$title = "Blist";
+	$title = "BLISS";
 ?>
 
 <head>

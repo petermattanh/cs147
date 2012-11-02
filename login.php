@@ -6,7 +6,7 @@
 <div data-role="page" data-theme="b" id="login">
 
 	<div data-role="header">
-		<h1>BLiST LogIn</h1>
+		<h1><?php echo $title; ?> LogIn</h1>
 	</div><!-- /header -->
 	<?php
 		if(isset($_SESSION['error'])) {
@@ -26,7 +26,7 @@
 		<input type="submit" name="Submit" value="Log In&raquo;" data-disabled="false"/>
 	    	
 		</form>	
-		<p>New to BLiST? Sign up <a href='register.php'>here</a>!</p>
+		<p>New to <?php echo $title; ?>? Sign up <a href='register.php'>here</a>!</p>
 
 	</div><!-- /content -->
 
