@@ -1,14 +1,13 @@
 <?php
-	$url = 'http://www.economist.com/news/united-states/21565628-week%E2%80%99s-storm-showed-american-crisis-management-its-best-yet-raised-questions';
+	
+	$url = 'http://www.washingtonpost.com/world/national-security/cia-rushed-to-save-diplomats-as-libya-attack-was-underway/2012/11/01/c93a4f96-246d-11e2-ac85-e669876c6a24_story.html?hpid=z1';
 
-	$rawHtml = file_get_contents($url);
-	//echo $rawHtml;
-	$startTagOfBody = '<div id="ec-article-body" class="clearfix">';
-	$endTagOfBody = '</div> <!-- /#ec-article-body -->';
-
-	$start = strpos($rawHtml, $startTagOfBody);
-	$end = strpos($rawHtml, $endTagOfBody, $start) + strlen($endTagOfBody);
- 
-	$extractedHtml = substr($rawHtml, $start, $end-$start);
-	phpinfo();
+	$file = file_get_contents($url);
+	
+	$start = "<div blah blah";
+	$dom = new DOMDocument();
+	@$dom->loadHTML($file);
+	var_dump($dom);
+	$domx = new DOMXPath($dom);
+	
 ?>

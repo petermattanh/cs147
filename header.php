@@ -1,6 +1,5 @@
 <?php
 	$title = "Blist";
-	include_once 'php/simplehtmldom/simple_html_dom.php';
 ?>
 
 <head>
