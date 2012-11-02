@@ -8,19 +8,18 @@
 	
 	$_COOKIE['timeblock'] which should be a serialized array of time blocks
 */
-	/* Added this code in for testing. */
 	$expire = time()+60*60*24*30; // a month
 	$array = array(
 		"init" => true,
 		"user_id" => 'test');
 	setcookie('user', serialize($array), $expire);
-	/* This doesn't bypass the registration page thats unimplemented. */
+	setcookie('timeblock', null);
 
 	if(isset($_COOKIE['user'])) {
 		$userData = unserialize(stripslashes($_COOKIE['user']));
 
 		if($userData['init']) {
-			include_once('../connect.php');
+			include_once('connect.php');
 			$timeblocks;
 
 			// start session to store username
