@@ -1,16 +1,7 @@
-<div data-role="page" data-theme="b" id="addtask" class="buttonNav" data-add-back-btn="true">
-
-	<div data-role="header" data-theme="b">
-		<h1>Add task!</h1>
-	</div><!-- /header -->
-
-	<div data-role="content">	
-		<h2>Put implementation of add task here</h2>
-
-		<?php include("forms.php"); ?>
-		<p><a href="#home" data-direction="reverse" data-role="button" data-theme="b">Back to Home page</a></p>	
-		
-	</div><!-- /content -->
-	
-	<?php include('footer.php'); ?>
-</div>
+<?php include('header.php');
+$text = '<p> 
+      Oct 20th 2012              | Hong Kong 
+                    | from the print edition           </p><p>    </p><p> CHINAâ€™S statisticians this week revealed that the countryâ€™s economy had grown by 7.4% in the third quarter. That was Chinaâ€™s slowest rate of expansion since early 2009 (see chart), and a pale shadow of the 9-12% rates it recorded back in 2010. So why did stockmarkets and economists around the region react with such relief? </p><p> The 7.4% figure was a â€œyear-on-yearâ€ calculation, comparing Chinaâ€™s economy from July to September with the same period last year. Of more interest to investors was the comparison with more recent periods. Between the second quarter and the third, for example, the economy grew at an annualised rate of about 9%. Thatâ€™s enough to fill any China bull with nostalgia. </p><p> A number of economists concluded that Chinaâ€™s protracted slowdown had at last run its course. Their confidence was bolstered by monthly figures showing the economy gaining strength as the third quarter wore on. Exports grew by 9.9% in the year to September, for example, having grown by only 2.7% in August. Septemberâ€™s industrial production beat expectations narrowly; retail sales beat them comfortably. </p><p> Many investors have complained that the governmentâ€™s response to Chinaâ€™s slowdown has been tardy and timid. It has offered no carefully wrapped, clearly labelled â€œstimulus packageâ€ to cheer them up. And Chinaâ€™s central bank has not cut interest rates since July or reserve requirements since May. The government has instead eased fiscal and monetary policy behind the scenes, hastening infrastructure approvals and buying securities from the banks whenever funds tighten. That low-key help has begun to show in the figures. Infrastructure investment, for example, grew by 12.6% in the first nine months of this year compared with the same period of 2011. The money supply (as measured by M2) grew by 14.8%. </p><p> Septemberâ€™s figures suggest Chinaâ€™s economy will once again defy its doubters, who have long expected a dramatic investment bust. Growth is unlikely to slow further in this cycle. But nor will it return to the heady rates of 2010. Chinaâ€™s policymakers seem to have reconciled themselves to growth of 7-8%, not 9-12%, over the medium term. Chinaâ€™s nostalgic bulls will have to do the same. </p><p> 
+      from the print edition | Finance and economics     </p>';
+echo $text;
+?>
