@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html> 
 <html> 
 <?php include('header.php'); ?>	
@@ -10,12 +11,12 @@
 	</div><!-- /header -->
 	<?php
 		if(isset($_SESSION['error'])) {
-			echo '<p> '.$_SESSION['error'].'</p>';
+			echo '<p class="error"> '.$_SESSION['error'].'</p>';
 			unset($_SESSION['error']);
 		}
 	?>
 	<div data-role="content">
-		<form action="submit.php" method="post">
+		<form action="submit.php" method="post" data-ajax="false">
 
 		<div data-role="fieldcontain">
 			<label>Username: <input type="text" name="username" id="username"/></label>
@@ -24,7 +25,7 @@
 			<label>Password: <input type="password" name="password" autocapitalize="off" /></label>
     	</div>
 		
-		<input type="submit" name="Submit" value="Log In&raquo;" data-disabled="false"/>
+		<input type="submit" name="Submit" value="Log In&raquo;" data-disabled="false" />
 	    	
 		</form>	
 		<p>New to <?php echo $title; ?>? Sign up <a href='register.php'>here</a>!</p>

@@ -8,6 +8,10 @@
 	padding: 0 !important;
 }
 
+.error {
+	color: red;
+}
+
 h1 {
 	letter-spacing: 3px;
 	text-transform: uppercase;

@@ -1,13 +1,11 @@
 <?php
+	session_start();
 	if(isset($_COOKIE['user'])) {
 		$userData = unserialize(stripslashes($_COOKIE['user']));
 
 		if($userData['init']) {
 			include_once('../connect.php');
 			$timeblocks;
-
-			// start session to store username and relevant data
-			session_start();
 
 			$query = 'SELECT * FROM users WHERE id="'. $userData['user_id'] .'"';
 			$query = mysql_query($query, $con);
