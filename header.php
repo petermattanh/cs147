@@ -1,5 +1,6 @@
 <?php
 	$title = "BLISS";
+	include_once('php-script/web_scrape.php');
 ?>
 
 <head>

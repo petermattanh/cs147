@@ -6,11 +6,12 @@
 <div data-role="page" data-theme="b" id="login">
 
 	<div data-role="header">
-		<h1><?php echo $title; ?> LogIn</h1>
+		<h1><?php echo $title; ?> Log In</h1>
 	</div><!-- /header -->
 	<?php
 		if(isset($_SESSION['error'])) {
 			echo '<p> '.$_SESSION['error'].'</p>';
+			unset($_SESSION['error']);
 		}
 	?>
 	<div data-role="content">

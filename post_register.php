@@ -22,7 +22,7 @@
 	// of adding their own timeblock, $timeBlocks should be modified
 	$timeBlocks    = array(5, 10); // time blocks of 5 and 10 minutes
 	$listStr       = serialize($list);
-	$timeBlocks[]  = $_POST['timeblock'];
+	$timeBlocks[]  = intval($_POST['timeblock']);
 	$timeBlocksStr = serialize($timeBlocks);
 	$query = "INSERT INTO users(username, password, list, timeblock)
 	VALUES ('$username', '$password', '$listStr', '$timeBlocksStr')";
@@ -40,7 +40,7 @@
 
 	$userId;
 	// should only be one row
-	while($row = mysql_fetch_array($query)) {
+	while($row = mysql_fetch_assoc($query)) {
 		$userId = $row['id'];
 	}
 	$userData = array("user_id" => $userId,

@@ -7,10 +7,9 @@
 	$query = "SELECT id FROM users WHERE username='$username' AND password='$password'";
 	$query = mysql_query($query, $con);
 	if($query) {
-		session_start();
-		$_SESSION['username'] = '$username';
-		redirect('index.php');
-	} else {
+		while($row = mysql_fetch_array(($query))) {
+			redirect('index.php');
+		}
 		$_SESSION['error'] = 'Password and username combination is incorrect. Please try again.';
 		redirect('login.php')	
 	}
