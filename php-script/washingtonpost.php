@@ -13,7 +13,7 @@
 	$washingtonPost->updateDatabase('http://www.washingtonpost.com/business');
 	$washingtonPost->updateDatabase('http://www.washingtonpost.com/business/technology');
 	$washingtonPost->updateDatabase('http://www.washingtonpost.com/entertainment');
-
+	$washingtonpost->closeConnection();
 
 	class WashingtonPostScraper {
 		protected $articles = array();
@@ -24,6 +24,7 @@
 		function __construct() {
 			// set time limit to unlimited
 			set_time_limit(0);
+			include('../../connect.php');
 		}
 
 		public function updateDatabase($url) {
@@ -35,7 +36,10 @@
 			$this->domain   = 'http://' . $this->domain[2];
 
 			$this->getArticleUrls($url);
-
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare("INSERT INTO washingtonpost(title, author, url, description, category, duration, content)
+				VALUES (?, ?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param('ssssssis', $title, $author, $url, $description, $category, $duration, $content);
 			foreach($this->articles as $article) {
 				$title       = str_replace("'", "\'", $article['title']);
 				$author      = $article['author'];
@@ -44,17 +48,17 @@
 				$description = str_replace("'", "\'", $article['description']);
 				$duration    = $article['duration'];
 				$content     = str_replace("'", "\'", $article['contents']);
-				$query       = "INSERT INTO washingtonpost(title, author, url, category, description, duration, content)
-				VALUES ('$title', '$author', '$url', '$category', '$description', $duration, '$content')";
 
-				$result = mysql_query($query, $con);
-				if(!$result) {
-			 		echo 'Error adding ' .$title.': '.$url.'<br />';
-			 		echo 'Error: ' . mysql_error();
-			 	}
+				if(!$stmt->execute()) {
+					echo 'Error inserting ' .$stmt->error;
+				}
 			}
 			echo 'Done adding to database! <br />';
-			mysql_close();
+			$stmt->close();
+		}
+
+		public function closeConnection() {
+			$mysqli->close();
 		}
 
 		private function getUrlDOM($url) {

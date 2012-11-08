@@ -1,24 +1,25 @@
 <?php
+	session_start();
 	include_once("../connect.php");
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	session_start();
 
-	// need to grab user id from DB
-	$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-	$query = mysql_query($query, $con);
-	if($query) {
-		if($row = mysql_fetch_assoc(($query))) {
+	$stmt = $mysqli->stmt_init();
+
+	if($stmt->prepare("SELECT cookie FROM users WHERE username=? AND password=?")) {
+		$stmt->bind_param('ss', $username, $password);
+		$stmt->execute();
+		$stmt->bind_result($cookie);
+		if($stmt->fetch()) {
 			$expire = time()+60*60*24*30; // a month
-			// set cookie so that when user logs in, they will be redirected to index.php
-			setcookie('user', $row['cookie'], $expire);
+			// set cookie so that when user logs in, they will not be redirected
+			setcookie('user', $cookie, $expire);
 			header('Location: index.php');
-			//exit;
 		} else {
 			$_SESSION['error'] = 'Password and username combination is incorrect. Please try again.';
 			header('Location: login.php');
-			//exit;
 		}
 	}
-
+	$stmt->close();
+	$mysqli->close();
 ?>

@@ -14,7 +14,8 @@
 	$NYTimes->updateDatabase('http://www.nytimes.com/pages/health/index.html');
 	$NYTimes->updateDatabase('http://www.nytimes.com/pages/sports/index.html');
 	$NYTimes->updateDatabase('http://www.nytimes.com/pages/arts/index.html');
-
+	$NYTimes->closeConnection();
+	
 	class NYTimesScraper {
 		protected $articles = array();
 		protected $domain;
@@ -24,6 +25,7 @@
 		function __construct() {
 			// set time limit to unlimited
 			set_time_limit(0);
+			include('../../connect.php');
 		}
 
 		public function updateDatabase($url) {
@@ -35,7 +37,10 @@
 			$this->domain   = 'http://' . $this->domain[2];
 
 			$this->getArticleUrls($url);
-
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare("INSERT INTO nytimes(title, author, url, description, category, subcategory, duration, content)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param('ssssssis', $title, $author, $url, $description, $category, $subcategory, $duration, $content);
 			foreach($this->articles as $article) {
 				$title       = str_replace("'", "\'", $article['title']);
 				$author      = $article['author'];
@@ -45,17 +50,17 @@
 				$description = str_replace("'", "\'", $article['description']);
 				$duration    = $article['duration'];
 				$content     = str_replace("'", "\'", $article['contents']);
-				$query       = "INSERT INTO nytimes(title, author, url, category, subcategory, description, duration, content)
-				VALUES ('$title', '$author', '$url', '$category', '$subcategory', '$description', $duration, '$content')";
 
-				$result = mysql_query($query, $con);
-				if(!$result) {
-			 		echo 'Error adding ' .$title.': '.$url.'<br />';
-			 		echo 'Error: ' . mysql_error();
-			 	}
+				if(!$stmt->execute()) {
+					echo 'Error inserting ' .$stmt->error;
+				}
 			}
 			echo 'Done adding to database! <br />';
-			mysql_close();
+			$stmt->close();
+		}
+
+		public function closeConnection() {
+			$mysqli->close();
 		}
 
 		private function getUrlDOM($url) {
@@ -149,7 +154,11 @@
 			if(!$xpath) return 0;
 			$articleBody = $xpath->query("//div[@class='articleBody']");
 			$subcategory = explode("/", $link);
+
+			// don't add blogs
+			if($subcategory[2] == "blogs") return 0;
 			$subcategory = $subcategory[7];
+
 
 			// don't add in blogs
 			if($category == "blogs") return 0;

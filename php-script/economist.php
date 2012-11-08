@@ -6,37 +6,43 @@
 
 <?php
 	$economist = new EconomistScraper();
-	$economist->updateDatabase('http://www.economist.com/world/united-states');
-	$economist->updateDatabase('http://www.economist.com/world/china');
-	$economist->updateDatabase('http://www.economist.com/world/europe');
-	$economist->updateDatabase('http://www.economist.com/culture');
-	$economist->updateDatabase('http://www.economist.com/world/china');
-	$economist->updateDatabase('http://www.economist.com/world/middle-east-africa');
-	$economist->updateDatabase('http://www.economist.com/business-finance');
-	$economist->updateDatabase('http://www.economist.com/economics');
-	$economist->updateDatabase('http://www.economist.com/science-technology');
-
+	// $economist->updateDatabase('http://www.economist.com/world/united-states');
+	// $economist->updateDatabase('http://www.economist.com/world/china');
+	// $economist->updateDatabase('http://www.economist.com/world/europe');
+	// $economist->updateDatabase('http://www.economist.com/culture');
+	// $economist->updateDatabase('http://www.economist.com/world/china');
+	// $economist->updateDatabase('http://www.economist.com/world/middle-east-africa');
+	// $economist->updateDatabase('http://www.economist.com/business-finance');
+	// $economist->updateDatabase('http://www.economist.com/economics');
+	// $economist->updateDatabase('http://www.economist.com/science-technology');
+	$economist->closeConnection();
+	
 	class EconomistScraper {
 		protected $articles = array();
 		protected $domain;
 		protected $category;
 
 		// Set actions to run when the class is instantiated
+		// edit to use prepared statements
 		function __construct() {
 			// set time limit to unlimited
 			set_time_limit(0);
+			include('../../connect.php');
 		}
 
 		public function updateDatabase($url) {
 			mb_internal_encoding("UTF-8");
 			// Set the root domain of the URL to concatinate with URLs later
-			include('../../connect.php');
 			$this->domain   = explode("/", $url);
 			
 			$this->category = $this->domain[3];
 			$this->domain   = 'http://' . $this->domain[2];
 			$this->getArticleUrls($url);
-			
+
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare("INSERT INTO economist(title, headline, url, description, category, subcategory, duration, content)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param('ssssssis', $title, $headline, $url, $description, $category, $subcategory, $duration, $content);
 			foreach($this->articles as $article) {
 				$title       = str_replace("'", "\'", $article['title']);
 
@@ -48,17 +54,17 @@
 				$subcategory = $article['subcategory'];
 				$duration    = $article['duration'];
 				$content     = str_replace("'", "\'", $article['contents']);
-				$query       = "INSERT INTO economist(title, headline, url, description, category, subcategory, duration, content)
-				VALUES ('$title', '$headline', '$url', '$description', '$category', '$subcategory', $duration, '$content')";
 
-				$result = mysql_query($query, $con);
-				if(!$result) {
-					echo 'Error adding ' .$title.': '.$url.'<br />';
-					echo 'Error: ' . mysql_error();
+				if(!$stmt->execute()) {
+					echo 'Error inserting ' .$stmt->error;
 				}
 			}
 			echo 'Done adding to database! <br />';
-			mysql_close();
+			$stmt->close();
+		}
+
+		public function closeConnection() {
+			$mysqli->close();
 		}
 
 		private function getUrlDOM($url) {

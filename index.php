@@ -6,22 +6,23 @@
 		if($userData['init']) {
 			include_once('../connect.php');
 			$timeblocks;
+			$stmt = $mysqli->stmt_init();
+			if($stmt->prepare('SELECT username, cookie, list, timeblock FROM users WHERE id=?')) {
+				// Bind parameters
+				$stmt->bind_param('i', $userData['user_id']);
 
-			$query = 'SELECT * FROM users WHERE id="'. $userData['user_id'] .'"';
-			$query = mysql_query($query, $con);
+				$stmt->execute();
 
-			if(!$query) {
-				$_SESSION['error'] = 'Error: Malformed cookie, no user exists in database by id of ' . $userData['user_id'];
-				die('ERROR');
-				header('Location: register.php');
+				// bind results
+				$stmt->bind_result($username, $cookie, $list, $timeblock);
+				while($stmt->fetch()) {
+					$_SESSION['username'] = $username;
+					$_SESSION['data']     = unserialize(stripslashes($cookie));
+					$_SESSION['list']     = unserialize(stripslashes($list));
+					$timeblocks           = unserialize(stripslashes($timeblock));
+				}
 			}
-
-			// should only be one row
-			$row = mysql_fetch_array($query);
-			$_SESSION['username'] = $row['username'];
-			$_SESSION['data'] = unserialize(stripslashes($row['cookie']));
-			$_SESSION['list'] = unserialize(stripslashes($row['list']));
-			$timeblocks = unserialize(stripslashes($row['timeblock']));
+			$stmt->close();
 			if(!$timeblocks) {
 				$timeblocks = array(5, 10, 15); // set default time blocks
 			}
@@ -36,11 +37,6 @@
 			$timeBlockHtml .= '</ul>';
 		}
 	} else {
-		$expire = time()+60*60*24*30; // a month
-		$array = array(
-			"init" => false,
-			"user_id" => NULL);
-		setcookie('user', serialize($array), $expire);
 		header('Location: login.php'); // should provide a login
 	}
 ?>
