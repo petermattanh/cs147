@@ -46,17 +46,26 @@
 <body> 
 
 <!-- Start of home page: #home -->
-<div data-role="page" data-theme="b" id="home">
-	<div data-role="header" data-theme="b">
-		
+<div data-role="page" data-theme="a" id="home">
+	<div data-role="header" data-theme="a">
 		<h1><?php echo $title; ?></h1>
-		<a href="#" class="ui-btn-right" data-role="button">Hide</a>
 	</div><!-- /header -->
+
+	<?php
+		if(isset($_SESSION['last_page'])) {
+			echo '<p> Congratulations! You finished initializing your account! </p>';
+			unset($_SESSION['last_page']);
+		}
+	?>
 
 	<div data-role="content">
 		<h2>Welcome <?php echo $_SESSION['username']; ?> </h2>
 		<?php echo $timeBlockHtml; ?>
 	</div><!-- /content -->
+	<div data-role="popup" id="help">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+	...popup contents go here...
+	</div>
 	<?php include('footer.php'); ?>
 </div>
 <!-- End of home page -->

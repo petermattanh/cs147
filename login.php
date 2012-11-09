@@ -4,10 +4,10 @@
 <?php include('header.php'); ?>	
 <body> 
 
-<div data-role="page" data-theme="b" id="login">
+<div data-role="page" data-theme="a" id="login">
 
-	<div data-role="header">
-		<h1><?php echo $title; ?> Log In</h1>
+	<div data-role="header" data-theme="a">
+		<h1><?php echo $title; ?></h1>
 	</div><!-- /header -->
 	<?php
 		if(isset($_SESSION['error'])) {
@@ -16,22 +16,28 @@
 		}
 	?>
 	<div data-role="content">
-		<form action="submit.php" method="post" data-ajax="false">
+		<h2>Log In:</h2>
+			<div align="center" style="background-color:#cfcfcf; opacity:0.5; margin-left:auto; margin-right:auto; width:80%; padding:3%; color:#000000;">
+			<form action="submit.php" method="post" data-ajax="false">
 
-		<div data-role="fieldcontain">
-			<label>Username: <input type="text" name="username" id="username"/></label>
-		</div>
-		<div data-role="fieldcontain">
-			<label>Password: <input type="password" name="password" autocapitalize="off" /></label>
-    	</div>
+			<div data-role="fieldcontain" data-theme="a">
+				<label>Username: <input type="text" name="username" id="username"/></label>
+			</div>
 		
-		<input type="submit" name="Submit" value="Log In&raquo;" data-disabled="false" />
+			<div data-role="fieldcontain" data-theme="a">
+				<label>Password: <input type="password" name="password" autocapitalize="off" /></label>
+    		</div>
+		
+			<input type="submit" name="Submit" value="Go!&raquo;" data-disabled="false" />
+			
 	    	
-		</form>	
-		<p>New to <?php echo $title; ?>? Sign up <a href='register.php'>here</a>!</p>
+			</form>
+			</div>	
 
 	</div><!-- /content -->
-
+	<div data-role="footer" data-theme="a" data-position="fixed">
+		<h2>   New to <?php echo $title; ?>? Sign up <a href='register.php' data-disabled="false">here</a>!</h2>
+	</div><!-- /footer -->
 </div><!-- /page -->
 
 </body>

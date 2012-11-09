@@ -9,15 +9,17 @@ var thTimer = {};
 thTimer.minutes = 0;
 thTimer.seconds = 0;
 thTimer.timer = '';
+thTimer.nextPage = '';
 thTimer.show = true;
 
 thTimer.tick = function() {
 	thTimer.seconds--;
 	if(thTimer.seconds < 0) {
 		thTimer.minutes--;
+		thTimer.nextPage.href = "time.php?time=" + thTimer.minutes;
 		if(thTimer.minutes < 0) {
 			// time is up
-			alert('yo!');
+			//alert('yo!');
 			return;
 		} else {
 			thTimer.seconds = 59;
@@ -55,7 +57,9 @@ thTimer.toggleDisplay = function() {
 	}
 }
 
-thTimer.initTimer = function(id, time) {
+thTimer.initTimer = function(next, id, time) {
+	thTimer.nextPage = document.getElementById(next);
+	console.log(thTimer.nextPage);
 	thTimer.timer = document.getElementById(id);
 	thTimer.minutes = time;
 	thTimer.seconds = 0;

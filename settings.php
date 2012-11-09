@@ -1,47 +1,33 @@
-<div data-theme="b" data-role="page" id="settings" class="buttonNav" data-add-back-btn="true">
+<div data-theme="a" data-role="page" id="settings">
 
 	<div data-role="header" data-theme="b">
 		<h1>Settings</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
-			<form action="post_settings.php" method="post">
+			<div data-role="content" data-theme="a">
+				<div data-role="fieldcontain" data-theme="a">
+					<a href="taskEdit.php" data-role="button" data-disabled="false">Edit Tasklist</a>
+				</div>
+				<div data-role="fieldcontain" data-theme="a">
+					<a href="timeEdit.php" data-role="button" data-disabled="false">Edit Time Blocks</a>
+				</div><br>
+				<div data-role="fieldcontain" data-theme="b">
+					<a href="index.php" data-role="button" data-disabled="false">Finished Editing!</a>
+			
+	</div><!-- /content -->
 
-	    	<div data-role="collapsible">
-	   			<h3>Edit Time Blocks</h3>
-				<label>Enter Time Block:<input type="number" name="timeblock" min="1" max="60" /></label>
-			</div>
+	<div data-role="popup" id="help">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+	...popup contents go here...
+	</div>
+	<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
+		<div data-role="navbar" class="nav-glyphish-example" data-grid="a">
+			<ul>
+				<li><form action="logout.php" method="post" data-ajax="false"><input type="submit" value="Log Out" data-disabled="false"/></form></li>
+				<li><a href="#help" class="pageButton" data-role="button" data-rel="popup">Help</a></li>
 
-			<div data-role="collapsible">
-	   			<h3>Edit Tasks</h3>
-	   			<div data-role="collapsible">
-	   				<h2>Read</h2>
-	   				<label><input type="checkbox" name="youtube" /> The Washington Post </label>
-	   				<label for="select-choice-min" class="select">Shipping method:</label>
-					<select name="washingtonpost_priority" id="PriorityLevel" data-mini="true">
-	   					<option value="high">High</option>
-	   					<option value="medium">Medium</option>
-	   					<option value="low">Low</option>
-					</select> 
-
-	   			</div>
-	   		    <div data-role="collapsible">
-	   				<h2>Watch</h2>
-	   				<label><input type="checkbox" name="washingtonpost" /> Youtube </label>
-	   				<select name="youtube_priority" id="PriorityLevel" data-mini="true">
-	   					<option value="high">High</option>
-	   					<option value="medium">Medium</option>
-	   					<option value="low">Low</option>
-					</select>
-	   			</div>
-
-	   	    </div>
-
-			<input type="submit" value="Save&raquo;" />
-
-			</form>	
-
-		</div><!-- /content -->
-	
-	<?php include('footer.php'); ?>
+			</ul>
+		</div>
+	</div>
 </div>
