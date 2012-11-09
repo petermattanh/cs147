@@ -62,7 +62,6 @@ http://www.ibm.com/developerworks/xml/library/x-youtubeapi/
 	// $yt->updateDatabase('Games', 'short');
 	// $yt->updateDatabase('People', 'medium');
 	// $yt->updateDatabase('People', 'short');
-	// $yt->updateDatabase('Comedy', 'medium');
 	// $yt->updateDatabase('Comedy', 'short');
 	// $yt->updateDatabase('Comedy', 'medium');
 	// $yt->updateDatabase('Entertainment', 'short');
@@ -90,24 +89,14 @@ http://www.ibm.com/developerworks/xml/library/x-youtubeapi/
 
 		public function updateDatabase($category, $duration) {
 			include('../../connect.php');
-			// $stmt = $mysqli->stmt_init();
-			// $stmt->prepare("SELECT smallThumb FROM youtube WHERE id=?");
-			// $stmt->bind_param('i', $id);
-
-			// $id = 480;
-
-			// $stmt->execute();
-			// $stmt->bind_result($smallThumb);
-
-			// $stmt->fetch();
-
-			// $smallThumb = unserialize(stripslashes($smallThumb));
-			// echo $smallThumb['url'];
+			
 			$this->getVideos($category, $duration);
 
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare("INSERT INTO youtube(title, category, videoId, description, smallThumb, largeThumb, duration, views, rating) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
 			$stmt->bind_param('ssssssiis', $title, $category, $videoId, $description, $smallThumb, $largeThumb, $duration, $views, $rating);
+
 			foreach($this->videos as $video) {
 				$title       = $video['title'];
 				$videoId     = $video['videoId'];

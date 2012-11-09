@@ -7,12 +7,12 @@
 <?php
 	$washingtonPost = new WashingtonPostScraper();
 	$washingtonPost->updateDatabase('http://www.washingtonpost.com/sports');
-	$washingtonPost->updateDatabase('http://www.washingtonpost.com/politics');
-	$washingtonPost->updateDatabase('http://www.washingtonpost.com/national');
-	$washingtonPost->updateDatabase('http://www.washingtonpost.com/world');
-	$washingtonPost->updateDatabase('http://www.washingtonpost.com/business');
-	$washingtonPost->updateDatabase('http://www.washingtonpost.com/business/technology');
-	$washingtonPost->updateDatabase('http://www.washingtonpost.com/entertainment');
+	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/politics');
+	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/national');
+	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/world');
+	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/business');
+	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/business/technology');
+	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/entertainment');
 	$washingtonpost->closeConnection();
 
 	class WashingtonPostScraper {
@@ -24,13 +24,31 @@
 		function __construct() {
 			// set time limit to unlimited
 			set_time_limit(0);
-			include('../../connect.php');
+			//include('../../connect.php');
 		}
 
 		public function updateDatabase($url) {
+			include('../../connect.php');
+			$stmt = $mysqli->stmt_init();
+			if(!$stmt->prepare("SELECT title FROM ? where id=?")) {
+				die($stmt->error);
+			}
+
+			$stmt->bind_param('si', $table, $id);
+			$table = 'washingtonpost';
+			$id = 152;
+			$stmt->execute();
+			die();
+			while ($row = $stmt->fetch()) {
+  			  var_dump($row);
+ 			 }
+			//var_dump($result);
+			echo 'resulted';
+			die();
+
 			mb_internal_encoding("UTF-8");
 			// Set the root domain of the URL to concatinate with URLs later
-			include('../../connect.php');
+	
 			$this->domain   = explode("/", $url);
 			$this->category = $this->domain[3];
 			$this->domain   = 'http://' . $this->domain[2];

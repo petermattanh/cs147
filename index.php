@@ -48,7 +48,9 @@
 <!-- Start of home page: #home -->
 <div data-role="page" data-theme="b" id="home">
 	<div data-role="header" data-theme="b">
+		
 		<h1><?php echo $title; ?></h1>
+		<a href="#" class="ui-btn-right" data-role="button">Hide</a>
 	</div><!-- /header -->
 
 	<div data-role="content">
