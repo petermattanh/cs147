@@ -7,13 +7,13 @@
 	<div data-role="content">
 			<div data-role="content" data-theme="a">
 				<div data-role="fieldcontain" data-theme="a">
-					<a href="taskEdit.php" data-role="button" data-disabled="false">Edit Tasklist</a>
+					<a href="taskedit.php" data-role="button" data-ajax="false">Edit Tasklist</a>
 				</div>
 				<div data-role="fieldcontain" data-theme="a">
-					<a href="timeEdit.php" data-role="button" data-disabled="false">Edit Time Blocks</a>
+					<a href="timeedit.php" data-role="button" data-ajax="false">Edit Time Blocks</a>
 				</div><br>
 				<div data-role="fieldcontain" data-theme="b">
-					<a href="index.php" data-role="button" data-disabled="false">Finished Editing!</a>
+					<a href="index.php" data-role="button" data-ajax="false">Finished Editing!</a>
 				</div>
 	</div><!-- /content -->
 

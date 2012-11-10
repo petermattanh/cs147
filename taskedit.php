@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php 
+	session_start();
+	require('show_tasklist.php');
+?>
 
 <!DOCTYPE html> 
 <html>
@@ -116,9 +119,7 @@
 			</form>
 		</div>		
 		<div>
-			<form name="delete" id="delete" action="deletetask.php" method="post" data-ajax="false">
 				<?php echo $taskListHtml; ?>
-			</form>
 		</div>
 
 	</div><!-- /content -->
