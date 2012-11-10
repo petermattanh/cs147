@@ -16,7 +16,8 @@ thTimer.tick = function() {
 	thTimer.seconds--;
 	if(thTimer.seconds < 0) {
 		thTimer.minutes--;
-		thTimer.nextPage.href = "time.php?time=" + thTimer.minutes;
+		var timeLeftInSeconds = thTimer.minutes * 60 + thTimer.seconds;
+		thTimer.nextPage.href = "time.php?time=" + timeLeftInSeconds;
 		if(thTimer.minutes < 0) {
 			// time is up
 			//alert('yo!');
@@ -61,8 +62,8 @@ thTimer.initTimer = function(next, id, time) {
 	thTimer.nextPage = document.getElementById(next);
 	console.log(thTimer.nextPage);
 	thTimer.timer = document.getElementById(id);
-	thTimer.minutes = time;
-	thTimer.seconds = 0;
+	thTimer.minutes = Math.floor(time/60);
+	thTimer.seconds = time % 60;
 
 	window.setTimeout("thTimer.tick()", 1000);
 

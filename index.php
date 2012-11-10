@@ -30,7 +30,7 @@
 
 			$timeBlockHtml = '<ul id="pages">';
 			for($i=0; $i < count($timeblocks); $i++) {
-				$timeBlockHtml .= '<li><a href="time.php?time='.$timeblocks[$i].'" class="pageButton" data-role="button" data-ajax="false">';
+				$timeBlockHtml .= '<li><a href="content.php?time='.($timeblocks[$i]*60).'" class="pageButton" data-role="button" data-ajax="false">';
 				$timeBlockHtml .= 'I have ' . $timeblocks[$i] . ' minutes!</a></li>';
 			}	
 	
