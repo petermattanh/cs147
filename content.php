@@ -1,7 +1,7 @@
 <?php
 //	session_start();
-	$link = mysql_connect('mysql-user-master.stanford.edu', 'ccs147mmau', 'iekaenie');
-	mysql_select_db('c_cs147_mmau');
+	$link = mysql_connect('mysql-user-master.stanford.edu', 'ccs147pphan92', 'aihietho');
+	mysql_select_db('c_cs147_pphan92');
 	
 	include('header.php'); 
 //	include('connect.php');
@@ -36,8 +36,7 @@
 	$_SESSION['list'][NYT] = 1;
 	$_SESSION['list'][YT] = 3;*/
 	
-	//$timeLeft = intval($_GET['time']) * 60;
-	$timeLeft = 350;
+	$timeLeft = intval($_GET['time']);
 	
 	while(true){
 			while(true){
@@ -108,8 +107,7 @@
 	</div>
 	
 	<!-- Settings page -->
-<!--<?php //include('settings.php'); ?>-->
+<?php include('settings.php'); ?>
 </body>
 
-<?php include('settings.php'); ?>
 </html>

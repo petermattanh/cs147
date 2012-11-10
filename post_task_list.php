@@ -60,13 +60,6 @@ $catUpdate->bind_param("si", $categoriesStr, $id);
 $catUpdate->execute();
 $catUpdate->close();
 
-$cookie = $mysqli->stmt_init();
-$cookie->prepare("UPDATE users SET cookie=? WHERE id=?");
-$cookie->bind_param('si', $cookieStr, $id);
-$cookieStr = serialize(array("user_id" => $id, "init" => true));
-$cookie->execute();
-$cookie->close();
-
 $mysqli->close();
 
 header('Location: taskedit.php');

@@ -14,7 +14,6 @@
 	$stmt->bind_result($timeblock);
 	$stmt->execute();
 	$stmt->fetch();
-	$timeblock;
 
 	if(!$timeblock) {
 		$timeblock = array();

@@ -16,8 +16,6 @@ thTimer.tick = function() {
 	thTimer.seconds--;
 	if(thTimer.seconds < 0) {
 		thTimer.minutes--;
-		var timeLeftInSeconds = thTimer.minutes * 60 + thTimer.seconds;
-		thTimer.nextPage.href = "time.php?time=" + timeLeftInSeconds;
 		if(thTimer.minutes < 0) {
 			// time is up
 			//alert('yo!');
@@ -47,6 +45,8 @@ thTimer.updateDisplay = function() {
 	}
 	
 	thTimer.timer.innerHTML = minutes + ':'+ seconds;
+	var timeLeftInSeconds = thTimer.minutes * 60 + thTimer.seconds;
+	thTimer.nextPage.href = "content.php?time=" + timeLeftInSeconds;
 }
 
 thTimer.toggleDisplay = function() {

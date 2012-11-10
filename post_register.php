@@ -17,16 +17,21 @@
 	$id->bind_result($userId);
 	$id->execute();
 	$id->fetch();
-
+	$id->close();
 	$expire = time()+60*60*24*30; // a month
 	$userData = array(
 		"user_id" => $userId,
 		"init" => true);
+	$_SESSION['data'] = $userData;
 	$userDataStr = serialize($userData);
-	$_SESSION['user_id'] = $userId;
 	setcookie('user', $userDataStr, $expire);
 	// redirect back to home page
-	$id->close();
+
+	$cookie = $mysqli->stmt_init();
+	$cookie->prepare("UPDATE users SET cookie=? WHERE id=?");
+	$cookie->bind_param('si', $userDataStr, $userId);
+	$cookie->execute();
+	$cookie->close();
 	$mysqli->close();
 	$_SESSION['last_page'] = 1;
 	header('Location: taskedit.php');

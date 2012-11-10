@@ -28,9 +28,7 @@
 				</div>				
 				</form>
 			</div>
-			<div
-				<?php echo $timeBlockHtml; ?>
-			</div>
+			<?php echo $timeBlockHtml; ?>
 		
 	</div><!-- /content -->
 	<div data-role="popup" id="help">

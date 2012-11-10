@@ -7,25 +7,35 @@
 			include_once('../connect.php');
 			$timeblocks;
 			$stmt = $mysqli->stmt_init();
-			if($stmt->prepare('SELECT username, cookie, list, timeblock FROM users WHERE id=?')) {
+			if($stmt->prepare('SELECT username, categories, cookie, list, timeblock FROM users WHERE id=?')) {
 				// Bind parameters
 				$stmt->bind_param('i', $userData['user_id']);
 
 				$stmt->execute();
 
 				// bind results
-				$stmt->bind_result($username, $cookie, $list, $timeblock);
+				$stmt->bind_result($username, $categories, $cookie, $list, $timeblock);
 				while($stmt->fetch()) {
-					$_SESSION['username'] = $username;
-					$_SESSION['data']     = unserialize(stripslashes($cookie));
-					$_SESSION['list']     = unserialize(stripslashes($list));
-					$timeblocks           = unserialize(stripslashes($timeblock));
+					$_SESSION['username']   = $username;
+					$_SESSION['categories'] = unserialize(stripslashes($categories));
+					$_SESSION['data']       = unserialize(stripslashes($cookie));
+					$_SESSION['list']       = unserialize(stripslashes($list));
+					
+					$timeblocks             = unserialize(stripslashes($timeblock));
 				}
 			}
 			$stmt->close();
 			if(!$timeblocks) {
 				$timeblocks = array(5, 10, 15); // set default time blocks
+				// insert this time block as default
+				$update = $mysqli->stmt_init();
+				$update->prepare("UPDATE users SET timeblock=? WHERE id=?");
+				$update->bind_param('si', $timeblocksStr, $userData['user_id']);
+				$timeblocksStr = serialize($timeblocks);
+				$update->execute();
+				$update->close();
 			}
+			
 			// timeblocks should be an array of times
 
 			$timeBlockHtml = '<ul id="pages">';
@@ -35,6 +45,7 @@
 			}	
 	
 			$timeBlockHtml .= '</ul>';
+			$mysqli->close();
 		}
 	} else {
 		header('Location: login.php'); // should provide a login

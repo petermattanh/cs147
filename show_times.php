@@ -29,13 +29,14 @@
 			// timeblocks should be an array of times
 
 			//$timeBlockHtml = '<ul data-role="listview"><li data-role="fieldcontain"><fieldset data-role="controlgroup">';
-			$timeBlockHtml = '<ul data-role"listview" style="list-style: none;">';
+			$timeBlockHtml = '<ul style="list-style: none;">';
 			for($i=0; $i < count($timeblocks); $i++) {
 				//$timeBlockHtml .= '<input type="submit" name="'.$timeblocks[$i].'" value="'.$timeblocks[$i].' minutes" data-icon="delete"/>';
-				$timeBlockHtml .= '<li><a href="delete_time.php?index='.$i.'" data-role="button" data-icon="delete" data-ajax="false" class="delete">'.$timeblocks[$i].'minute(s)</a></li>';
+				$timeBlockHtml .= '<li><a href="delete_time.php?index='.$i.'" data-role="button" data-icon="delete" data-ajax="false" class="delete">'.$timeblocks[$i].' minute(s)</a></li>';
 			}	
 			$timeBlockHtml .= '</ul>';
 			//$timeBlockHtml .= '</fieldset></li></ul>';
+			$mysqli->close();
 		}
 	} else {
 		header('Location: login.php'); // should provide a login

@@ -1,11 +1,11 @@
 <div data-theme="a" data-role="page" id="settings">
 
 	<div data-role="header" data-theme="b">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="back" data-iconpos="notext" class="ui-btn-left">Back</a>
 		<h1>Settings</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">
-		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		
 			<div data-role="content" data-theme="a">
 				<div data-role="fieldcontain" data-theme="a">

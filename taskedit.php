@@ -118,9 +118,8 @@
 				</script>
 			</form>
 		</div>		
-		<div>
 				<?php echo $taskListHtml; ?>
-		</div>
+
 
 	</div><!-- /content -->
 	<div data-role="popup" id="help">

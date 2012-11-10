@@ -25,31 +25,31 @@ if(isset($_COOKIE['user'])) {
 			$categories = array(); 
 		}
 
-		$taskListHtml = '<ul data-role="listview"><li data-role="fieldcontain"><fieldset data-role="controlgroup">';				
+		$taskListHtml = '<ul style="list-style-none">';	
 		foreach($categories as $source => $cat) {
 			if(!$cat) {
-				$cat = array();
+				continue;
 			}
 			for($i=0; $i < count($cat); $i++) {
-				if( $source == "Youtube") {
-					$taskListHtml .= '<input type="submit" name="'.$source.'-'.$cat[$i].'" value=" Watch '.$cat[$i].' videos on Youtube" data-icon="delete"/>';
-				} 
-				else {
-					$taskListHtml .= '<input type="submit" name="'.$source.'-'.$cat[$i].'" value=" Read '.$cat[$i].' articles on ';
+				if($source == "Youtube") {
+					$taskListHtml .= '<li><a href="delete_task.php?task='.$source.'-'.$cat[$i].'" data-role="button" data-ajax="false" data-icon="delete">'.'Watch '.$cat[$i].' videos on Youtube'.'</a></li>';
+				} else {
+					$taskListHtml .= '<li><a href="delete_task.php?task='.$source.'-'.$cat[$i].'" data-role="button" data-ajax="false" data-icon="delete">'.'Read '.$cat[$i].' articles on ';
 					if($source == "washingtonpost"){
-						$taskListHtml .= ' The Washington Post." data-icon="delete"/>';
+						$taskListHtml .= ' The Washington Post.';
 					}
 					if($source == "economist"){
-						$taskListHtml .= ' The Economist." data-icon="delete"/>';
+						$taskListHtml .= ' The Economist.';
 					}
 					if($source == "nytimes"){
-						$taskListHtml .= ' The New York Times." data-icon="delete"/>';
+						$taskListHtml .= ' The New York Times.';
 					}
+					$taskListHtml .= '</a></li>';
 				}
 
 			}
-		}	
-		$taskListHtml .= '</fieldset></li></ul>';
+		}
+		$taskListHtml .= '</ul>';
 	}
 	else {
 		header('Location: login.php'); // should provide a login
