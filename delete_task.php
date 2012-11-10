@@ -15,56 +15,53 @@
 
 	if($stmt->fetch()) {
 		$categories = unserialize(stripslashes($categories));
-		foreach($categories as $source=>$cats) {
-			// found the category for source
-			if($source == $medium) {
-				$length = count($cats);
-				for($i=0; $i<$length; $i++) {
+		
+		$cats = $categories[$medium];
+		$length = count($cats);
+		for($i=0; $i<$length; $i++) {
 
-					// find category to unset
-					if($cats[$i] == $category) {
-						unset($cats[$i]);
-						$stmt->close();
+			// find category to unset
+			if($cats[$i] == $category) {
+				unset($cats[$i]);
+				$stmt->close();
 	
-						$cats = array_values($cats);
+				$cats = array_values($cats);
+				
+				if(count($cats) == 0) {
+					// medium no longer has any categories
+					// so remove from categories
+					unset($categories[$medium]);
 
-						if(count($cats) == 0) {
-							// medium no longer has any categories
-							// so remove from categories
-							unset($categories[$source]);
+					// remove from list if no categories remain
+					$list = unserialize(stripslashes($list));
+					unset($list[$medium]);
 
-							// remove from list if no categories remain
-							$list = unserialize(stripslashes($list));
-							unset($list[$medium]);
+					// update list
+					$updateList = $mysqli->stmt_init();
+					$updateList->prepare("UPDATE users SET list=? WHERE id=?");
+					$updateList->bind_param('si', $list, $_SESSION['data']['user_id']);
 
-							// update list
-							$updateList = $mysqli->stmt_init();
-							$updateList->prepare("UPDATE users SET list=? WHERE id=?");
-							$updateList->bind_param('si', $list, $_SESSION['data']['user_id']);
+					$list = serialize($list);
 
-							$list = serialize($list);
+					if(!$updateList->execute()) die($updateList->error);
+					$updateList->close();
 
-							if(!$updateList->execute()) die($updateList->error);
-							$updateList->close();
-
-						} else {
-							$categories[$source] = $cats;
-						}
-						
-						$categories = serialize($categories);
-
-						// update categories
-						$updateCat = $mysqli->stmt_init();
-						$updateCat->prepare("UPDATE users SET categories=? WHERE id=?");
-						$updateCat->bind_param('si', $categories, $_SESSION['data']['user_id']);
-						
-						$updateCat->execute();
-						$updateCat->close();
-						$mysqli->close();
-						header('Location: taskedit.php');
-						exit();
-					}
+				} else {
+					$categories[$medium] = $cats;
 				}
+						
+				$categories = serialize($categories);
+
+				// update categories
+				$updateCat = $mysqli->stmt_init();
+				$updateCat->prepare("UPDATE users SET categories=? WHERE id=?");
+				$updateCat->bind_param('si', $categories, $_SESSION['data']['user_id']);
+						
+				$updateCat->execute();
+				$updateCat->close();
+				$mysqli->close();
+				header('Location: taskedit.php');
+				exit();
 			}
 		}
 
