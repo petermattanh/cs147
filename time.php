@@ -98,7 +98,7 @@
 
 	<div data-role="header" data-theme="b">
 		<h1><?php echo $activity; ?></h1>
-		<p href="#" id="timer" style="background-color: white; border: 1px solid black; border-radius: 5px; padding: 3px; cursor:pointer;" onclick="thTimer.toggleDisplay()" class="ui-btn-right"></p>
+		<p href="#" id="timer" onclick="thTimer.toggleDisplay()" class="ui-btn-right"></p>
 	</div><!-- /header -->
 
 	<div data-role="content">

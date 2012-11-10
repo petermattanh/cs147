@@ -14,7 +14,7 @@
 				</div><br>
 				<div data-role="fieldcontain" data-theme="b">
 					<a href="index.php" data-role="button" data-disabled="false">Finished Editing!</a>
-			
+				</div>
 	</div><!-- /content -->
 
 	<div data-role="popup" id="help">

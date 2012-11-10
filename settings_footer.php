@@ -4,21 +4,21 @@
 			<li><form action="logout.php" method="post" data-ajax="false"><input type="submit" value="Log Out" data-disabled="false"/></form></li>
 			<li><a href="#help" class="pageButton" data-role="button" data-rel="popup">Help</a></li>
 
-			<li><a href="#settings" id="next" class="pageButton" data-role="button">Finished Editing</a></li>
+			<li><a href="index.php" id="next" class="pageButton" data-role="button">Finished Editing</a></li>
 			
 		</ul>
 	</div>
 </div>
 
 	<?php
-		if(isset($_SESSION['last_page'])) {
-			if($_SESSION['last_page'] == 1) {
-				echo '<script>document.getElementById("next").href="timeedit.php";</script>';
-			}
-			else{
-				echo '<script>document.getElementById("next").href="index.php"</script>';
-			}
-		}
+		// if(isset($_SESSION['last_page'])) {
+		// 	if($_SESSION['last_page'] == 1) {
+		// 		echo '<script>document.getElementById("next").href="timeedit.php";</script>';
+		// 	}
+		// 	else{
+		// 		echo '<script>document.getElementById("next").href="index.php"</script>';
+		// 	}
+		// }
 	?>
 
 <script type="text/javascript">
