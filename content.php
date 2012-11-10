@@ -84,6 +84,9 @@
 			?>
 		</h1>
 		<p href="#" id="timer" onclick="thTimer.toggleDisplay()" class="ui-btn-right"></p>
+		<script type="text/javascript">
+			window.onload = thTimer.initTimer('nextPage', 'timer', <?php echo $_GET['time']; ?>);
+		</script>
 	</div><!-- /header -->
 
 	<div data-role="content">
@@ -97,10 +100,6 @@
 		<p>
 			<a href="content.php?time=5" id="nextPage" data-ajax="false"> Give me another </a>
 		</p>
-		
-		<script type="text/javascript">
-			window.onload = thTimer.initTimer('nextPage', 'timer', <?php echo $_GET['time']; ?>);
-		</script>
 	</div><!-- /content -->
 	
 	<?php include('footer.php'); ?>
