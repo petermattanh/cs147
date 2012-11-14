@@ -6,7 +6,7 @@
 
 <?php
 	$washingtonPost = new WashingtonPostScraper();
-	$washingtonPost->updateDatabase('http://www.washingtonpost.com/sports');
+	//$washingtonPost->updateDatabase('http://www.washingtonpost.com/sports');
 	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/politics');
 	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/national');
 	// $washingtonPost->updateDatabase('http://www.washingtonpost.com/world');
@@ -28,24 +28,6 @@
 		}
 
 		public function updateDatabase($url) {
-			include('../../connect.php');
-			$stmt = $mysqli->stmt_init();
-			if(!$stmt->prepare("SELECT title FROM ? where id=?")) {
-				die($stmt->error);
-			}
-
-			$stmt->bind_param('si', $table, $id);
-			$table = 'washingtonpost';
-			$id = 152;
-			$stmt->execute();
-			die();
-			while ($row = $stmt->fetch()) {
-  			  var_dump($row);
- 			 }
-			//var_dump($result);
-			echo 'resulted';
-			die();
-
 			mb_internal_encoding("UTF-8");
 			// Set the root domain of the URL to concatinate with URLs later
 	
@@ -54,10 +36,12 @@
 			$this->domain   = 'http://' . $this->domain[2];
 
 			$this->getArticleUrls($url);
+			include('../../connect.php');
+			$stmt = $mysqli->stmt_init();
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare("INSERT INTO washingtonpost(title, author, url, description, category, duration, content)
 				VALUES (?, ?, ?, ?, ?, ?, ?)");
-			$stmt->bind_param('ssssssis', $title, $author, $url, $description, $category, $duration, $content);
+			$stmt->bind_param('sssssis', $title, $author, $url, $description, $category, $duration, $content);
 			foreach($this->articles as $article) {
 				$title       = str_replace("'", "\'", $article['title']);
 				$author      = $article['author'];
@@ -113,11 +97,15 @@
 		// Start Get Article Urls
 		// $startTag should look something like "section[@class='something']"
 		private function getArticleUrls($url) {
-
+			include('../../connect.php');
 			$xpath = $this->getUrlDOM($url);
 			if(!$xpath) return 0;
 			// Get a list of articles from the section page
 			$articleList = $xpath->query("//div[@class='module s1 img-border ']");
+			$stmt = $mysqli->stmt_init();
+			if(!$stmt->prepare("SELECT id FROM washingtonpost WHERE url=?")) die($stmt->error);
+			$stmt->bind_param('s', $link);
+			$stmt->bind_result($result);
 
 			// store all article and article contents in array
 			foreach($articleList as $article) {
@@ -126,11 +114,8 @@
 				$paragraphs  = $article->getElementsByTagName('p');
 				$author      = $paragraphs->item(0)->nodeValue;
 				$description = $paragraphs->item(1)->nodeValue;
-
-				$query      = "SELECT id FROM washingtonpost WHERE title='$title' AND author='$author'";
-				$query      = mysql_query($query);
-
-				if(@mysql_fetch_assoc($query)) {
+				$stmt->execute();
+				if($stmt->fetch()) {
 					// article already inserted in database
 					continue;
 				}
@@ -152,7 +137,8 @@
 					'contents'    => $contents
 					);
 			}
-
+			$stmt->close();
+			$mysqli->close();
 		}
 
 		public function getArticleContent($link, &$duration, &$contents) {

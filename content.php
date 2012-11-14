@@ -2,48 +2,33 @@
 	session_start();
 	$link = mysql_connect('mysql-user-master.stanford.edu', 'ccs147pphan92', 'aihietho');
 	mysql_select_db('c_cs147_pphan92');
-	
-//	include('connect.php');
 
 	define("WP", "washingtonpost");
 	define("E", "economist");
 	define("NYT", "nytimes");
 	define("YT", "youtube");
-	
-	
 	define("T", "text");
 	define("V", "video");
 
-	//The cookie should exist by the time this page comes up, but for now
-	//here are hard coded values.
+	//Session storage should be defined by the time this page is reached: 'lists' and 'categories'
 	$_SESSION['sources'] = array(WP, E, NYT, YT);
 	$_SESSION['source_medium'] = array(WP=>T, E=>T, NYT=>T, YT=>V);
-	$_SESSION['preferences'] = array(WP=>1, E=>1, NYT=>1, YT=>1);
-	
-	$_SESSION['categories'][WP] = array("business", "local", "world", "entertainment", "politics", "sports");
-	$_SESSION['categories'][E] = array("world", "business", "culture");
-	$_SESSION['categories'][NYT] = array("world", "business", "national", "technology");
-	$_SESSION['categories'][YT] = array("Entertainment", "Autos", "Animals", "Sports", "Travel", "Games", "People", "Comedy", "News", "Howto", "Movies", "Trailers");
 
-	/*$_SESSION['list'][WP] = 1;
-	$_SESSION['list'][E] = 1;
-	$_SESSION['list'][NYT] = 1;
-	$_SESSION['list'][YT] = 3;*/
-	
-	$timeLeft = intval($_GET['time']);
-	
+	$timeLeft = intval($_GET['time']) * 60;
+	//$timeLeft = 350; //For testing.
+
 	while(true){
 			while(true){
 				$numSources = count($_SESSION['sources']);
 				for($i = 0; $i < $numSources; $i++){
 					$source = $_SESSION['sources'][$i];
-					$priority = $_SESSION['preferences'][$source];
+					$priority = $_SESSION['list'][$source];
 					$chance = rand(0, 9);
 					if($priority == 1) $chance -= 8;
 					if($priority == 2) $chance -= 6;
 					if($priority == 3) $chance -= 4;
 					//Find a better way to do priorities if there is time.
-					
+
 					if($chance >= 1){
 						$numCategories = count($_SESSION['categories'][$source]);
 						$index = rand(0, ($numCategories - 1));
@@ -52,14 +37,14 @@
 					}
 				}
 			}
-			
+
 		$query = "SELECT * FROM ".$source." WHERE category = '".$category."' AND duration <=".$timeLeft." LIMIT 10";
 		if($result = mysql_query($query)){
 			//At least one result must exist.
 			$numResults = mysql_num_rows($result);
 			$randRow = rand(1, $numResults);
 			for($i = 0; $i < $randRow; $i++){ $row = mysql_fetch_assoc($result); }	
-			
+
 			if($title = $row['title']){
 				$content_medium = $_SESSION['source_medium'][$source];
 				break 1;
@@ -67,12 +52,13 @@
 		}
 	}
 	$storyTitle = $title;
-					
 ?>
+
 <!DOCTYPE html> 
 <html>
-<?php include('header.php'); ?>	
 <body> 
+<?php include('header.php'); ?>
+
 
 <div data-role="page" data-theme="a" id="task" class="buttonNav" data-add-back-btn="true">
 
@@ -91,7 +77,7 @@
 		</div></p>
 
 	</div><!-- /header -->
-	
+
 	<div data-role="content">
 		<h1> <?php
 			$_SESSION['last_source'] = $source;
@@ -121,7 +107,7 @@
 
 		<p><b>Next:</b> Click "next" to go navigate to new content if you want to skip or have finished viewing this content.</p>
 	</div>
-	
+
 	<?php include('footer.php'); ?>
 </div>
 	<script type="text/javascript">

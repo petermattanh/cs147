@@ -26,16 +26,6 @@
 				}
 			}
 			$stmt->close();
-			/*if(!$timeblocks) {
-				$timeblocks = array(5, 10, 15); // set default time blocks
-				// insert this time block as default
-				$update = $mysqli->stmt_init();
-				$update->prepare("UPDATE users SET timeblock=? WHERE id=?");
-				$update->bind_param('si', $timeblocksStr, $userData['user_id']);
-				$timeblocksStr = serialize($timeblocks);
-				$update->execute();
-				$update->close();
-			}*/
 			
 			// timeblocks should be an array of times
 
