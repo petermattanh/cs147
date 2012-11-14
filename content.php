@@ -4,14 +4,11 @@
 	mysql_select_db('c_cs147_pphan92');
 	
 	include('header.php'); 
-//	include('connect.php');
 
 	define("WP", "washingtonpost");
 	define("E", "economist");
 	define("NYT", "nytimes");
 	define("YT", "youtube");
-	
-	
 	define("T", "text");
 	define("V", "video");
 ?>
@@ -20,30 +17,19 @@
 <body> 
 
 <?php
-	//The cookie should exist by the time this page comes up, but for now
-	//here are hard coded values.
+	//Session storage should be defined by the time this page is reached: 'lists' and 'categories'
 	$_SESSION['sources'] = array(WP, E, NYT, YT);
 	$_SESSION['source_medium'] = array(WP=>T, E=>T, NYT=>T, YT=>V);
-	$_SESSION['preferences'] = array(WP=>1, E=>1, NYT=>1, YT=>1);
 	
-	$_SESSION['categories'][WP] = array("business", "local", "world", "entertainment", "politics", "sports");
-	$_SESSION['categories'][E] = array("world", "business", "culture");
-	$_SESSION['categories'][NYT] = array("world", "business", "national", "technology");
-	$_SESSION['categories'][YT] = array("Entertainment", "Autos", "Animals", "Sports", "Travel", "Games", "People", "Comedy", "News", "Howto", "Movies", "Trailers");
-
-	/*$_SESSION['list'][WP] = 1;
-	$_SESSION['list'][E] = 1;
-	$_SESSION['list'][NYT] = 1;
-	$_SESSION['list'][YT] = 3;*/
-	
-	$timeLeft = intval($_GET['time']);
+	$timeLeft = intval($_GET['time']) * 60;
+	//$timeLeft = 350; //For testing.
 	
 	while(true){
 			while(true){
 				$numSources = count($_SESSION['sources']);
 				for($i = 0; $i < $numSources; $i++){
 					$source = $_SESSION['sources'][$i];
-					$priority = $_SESSION['preferences'][$source];
+					$priority = $_SESSION['list'][$source];
 					$chance = rand(0, 9);
 					if($priority == 1) $chance -= 8;
 					if($priority == 2) $chance -= 6;
@@ -65,7 +51,7 @@
 			$numResults = mysql_num_rows($result);
 			$randRow = rand(1, $numResults);
 			for($i = 0; $i < $randRow; $i++){ $row = mysql_fetch_assoc($result); }	
-			
+		
 			if($title = $row['title']){
 				$content_medium = $_SESSION['source_medium'][$source];
 				break 1;
@@ -84,13 +70,15 @@
 			?>
 		</h1>
 		<p href="#" id="timer" onclick="thTimer.toggleDisplay()" class="ui-btn-right"></p>
-		<script type="text/javascript">
-			window.onload = thTimer.initTimer('nextPage', 'timer', <?php echo $_GET['time']; ?>);
-		</script>
 	</div><!-- /header -->
 
 	<div data-role="content">
-		<h1> <?php echo $source; ?> </h1>
+		<h1> <?php 
+			if($source = WP) echo "The Washington Post"; 
+			if($source = E) echo "The Economist"; 
+			if($source = NYT) echo "The New York Times"; 
+			if($source = YT) echo "Youtube"; 
+		?> </h1>
 		<h2><?php echo $title; ?></h2>
 	
 		<?php
@@ -100,13 +88,16 @@
 		<p>
 			<a href="content.php?time=5" id="nextPage" data-ajax="false"> Give me another </a>
 		</p>
+		
+		<script type="text/javascript">
+			window.onload = thTimer.initTimer('nextPage', 'timer', <?php echo $_GET['time']; ?>);
+		</script>
 	</div><!-- /content -->
 	
 	<?php include('footer.php'); ?>
 	</div>
 	
 	<!-- Settings page -->
-<?php include('settings.php'); ?>
+<!--<?php //include('settings.php'); ?>-->
 </body>
-
 </html>
