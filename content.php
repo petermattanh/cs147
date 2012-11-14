@@ -28,8 +28,9 @@
 					if($priority == 2) $chance -= 6;
 					if($priority == 3) $chance -= 4;
 					//Find a better way to do priorities if there is time.
+					
+					if($chance >= 1 && $_SESSION['list'][$source] != null){
 
-					if($chance >= 1){
 						$numCategories = count($_SESSION['categories'][$source]);
 						$index = rand(0, ($numCategories - 1));
 						$category = $_SESSION['categories'][$source][$index];
