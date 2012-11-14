@@ -1,5 +1,5 @@
-<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false">
-	<div data-role="navbar" class="nav-glyphish-example" data-grid="b">
+<div data-role="footer" data-id="samebar" class="nav-glyphish-example" data-position="fixed" data-tap-toggle="false" data-theme="b">
+	<div data-role="navbar" class="nav-glyphish-example" data-grid="b" data-theme="b">
 		<ul>
 			<li>
 				<form action="logout.php" method="post" data-ajax="false"><input type="submit" value="Log Out" data-disabled="false"/>

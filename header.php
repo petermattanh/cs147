@@ -1,5 +1,5 @@
 <?php
-	$title = "BLISS";
+	$title = "Time Hacks";
 ?>
 
 <head>

@@ -15,10 +15,10 @@
 	<?php
 		if(isset($_SESSION['last_page'])) {
 			echo '<p> Congratualtions! You have successfully registered! Now get started by setting up your TaskList! </p>';
+			$_SESSION['last_page'] = 2;
 		}
 	?>
 	<div data-role="content" data-theme="a">
-		<div style="background-color:#cfcfcf;">
 			<form name="taskform" id="taskform" action="post_task_list.php" method="post" data-ajax="false">
 			<div data-role='fieldcontain' data-theme='a'>
 				<fieldset data-role="controlgroup" class="ui-hide-label">
@@ -44,8 +44,8 @@
 					<option value="1">Low</option>
 					</select>
 				</fieldset>	
-				<div data-role="fieldcontain" data-theme="a">
-					<input type="submit" id="sbmt" value="Add To List!" data-disabled="false" disabled/>
+				<div data-role="fieldcontain" data-theme="b">
+					<input type="submit" id="sbmt" value="Add To List!" data-disabled="false" data-theme="b" disabled/>
 				</div>
 				<script>
 					$('#todo').change(function() {
@@ -117,14 +117,28 @@
 					});
 				</script>
 			</form>
-		</div>		
+			<p><b>Your Tasklist:</b></p>
 				<?php echo $taskListHtml; ?>
 
 
 	</div><!-- /content -->
 	<div data-role="popup" id="help">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-	...popup contents go here...
+		<p>Set up a list of tasks that you would like to do in your free time and rank their importance!</p>
+		<p><b>Adding:</b></p>
+		<p>First, choose <b>how</b> you'd like to 
+		<p>Second, choose the <b>source</b> from which you want this content to come from.</p>
+		<p>Third, choose a <b>category</b> for what type of content you'd like to view. </p>
+		<p>Finally, rank <b>how important</b> this task is to you and click "Add to List" to save the task to your tasklist!</p>
+		<p>Please note that you cannot proceed to the next step without completing the previous one!</p>
+		<p><b>Deleting:</b></p>
+		<p>Click on the button with the task you want to delete inside the tasklist to remove it.</p>
+			<?php
+			if(!isset($_SESSION['last_page'])) {
+			echo '<p> When finished, click "Finished" to return to the settings menu! </p>';
+		}
+	?>
+
 	</div>
 	<?php include('settings_footer.php'); ?>
 </div>

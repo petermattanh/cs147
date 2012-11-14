@@ -1,9 +1,8 @@
 <?php
-//	session_start();
+	session_start();
 	$link = mysql_connect('mysql-user-master.stanford.edu', 'ccs147pphan92', 'aihietho');
 	mysql_select_db('c_cs147_pphan92');
 	
-	include('header.php'); 
 //	include('connect.php');
 
 	define("WP", "washingtonpost");
@@ -14,12 +13,7 @@
 	
 	define("T", "text");
 	define("V", "video");
-?>
-<!DOCTYPE html> 
-<html>
-<body> 
 
-<?php
 	//The cookie should exist by the time this page comes up, but for now
 	//here are hard coded values.
 	$_SESSION['sources'] = array(WP, E, NYT, YT);
@@ -72,39 +66,67 @@
 			}
 		}
 	}
-			
+	$storyTitle = $title;
+					
 ?>
+<!DOCTYPE html> 
+<html>
+<?php include('header.php'); ?>	
+<body> 
 
-<div data-role="page" data-theme="b" id="task" class="buttonNav" data-add-back-btn="true">
+<div data-role="page" data-theme="a" id="task" class="buttonNav" data-add-back-btn="true">
 
-	<div data-role="header" data-theme="b">
+	<div data-role="header" data-theme="a" data-position="fixed">
 		<h1><?php
 			if($content_medium == "text") echo "READING";
 			if($content_medium == "video") echo "WATCHING";
 			?>
 		</h1>
-		<p href="#" id="timer" onclick="thTimer.toggleDisplay()" class="ui-btn-right"></p>
-		<script type="text/javascript">
-			window.onload = thTimer.initTimer('nextPage', 'timer', <?php echo $_GET['time']; ?>);
-		</script>
-	</div><!-- /header -->
+		<p href="#" id="timer" onclick="thTimer.toggleDisplay()" class="ui-btn-right" style="color:#000000;"></p>
 
+		<p><div align="center" data-role="controlgroup" data-type="horizontal">
+
+			<a href="index.php" data-role="button" data-icon="home" data-ajax="false">Home</a>			
+			<a href=<?php echo "content.php?time=$timeLeft"; ?> id="nextHeader" data-role="button" data-icon="arrow-r" data-ajax="false" onclick="thTimer.setHref()">Next</a>
+		</div></p>
+
+	</div><!-- /header -->
+	
 	<div data-role="content">
-		<h1> <?php echo $source; ?> </h1>
-		<h2><?php echo $title; ?></h2>
+		<h1> <?php
+			$_SESSION['last_source'] = $source;
+			if($source == "washingtonpost") echo "The Washington Post";
+			if($source == "economist") echo "The Economist";
+			if($source == "nytimes") echo "The New York Times"
+			 ?> 
+		</h1>
+		<h2><?php 
+			$_SESSION['last_title'] = $storyTitle;
+			echo $storyTitle; 
+			?></h2>
 	
 		<?php
+			$_SESSION['last_content'] = $content_medium;
 			if($content_medium == "video") echo "<iframe width='420' height='315' src='http://www.youtube.com/embed/".$row['videoId']."' frameborder='0' allowfullscreen></iframe>";
 			if($content_medium == "text") echo $row['content'];
 		?>
 		<p>
-			<a href="content.php?time=5" id="nextPage" data-ajax="false"> Give me another </a>
+			<a href=<?php echo "content.php?time=$timeLeft"; ?> id="nextPage" data-ajax="false" onclick="thTimer.setHref()"> Give me another </a>
 		</p>
 	</div><!-- /content -->
-	
-	<?php include('footer.php'); ?>
+	<div data-role="popup" id="help">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<p>Welcome to the contents page! Here, you will be shown materials to read or watched based on the items you added to your task list and the amount of free time you indicated you have. The timer at the top right hand corner keeps track of how much time has elapsed. Click on the timer to hide it. Alternatively, tap the screen once to hide the entire header. Tap the screen again to bring the header back.
+		<p><b>Home:</b> To navigate back to the home screen to change your desired time block, simply click the "home" button.
+
+		<p><b>Next:</b> Click "next" to go navigate to new content if you want to skip or have finished viewing this content.</p>
 	</div>
 	
+	<?php include('footer.php'); ?>
+</div>
+	<script type="text/javascript">
+		window.onload = thTimer.initTimer('nextHeader', 'nextPage', 'timer', <?php echo $_GET['time']; ?>);
+	</script>
 	<!-- Settings page -->
 <?php include('settings.php'); ?>
 </body>

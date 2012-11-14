@@ -1,5 +1,6 @@
 <?php
 	session_start();
+
 	if(isset($_COOKIE['user'])) {
 		$userData = unserialize(stripslashes($_COOKIE['user']));
 
@@ -25,7 +26,7 @@
 				}
 			}
 			$stmt->close();
-			if(!$timeblocks) {
+			/*if(!$timeblocks) {
 				$timeblocks = array(5, 10, 15); // set default time blocks
 				// insert this time block as default
 				$update = $mysqli->stmt_init();
@@ -34,13 +35,13 @@
 				$timeblocksStr = serialize($timeblocks);
 				$update->execute();
 				$update->close();
-			}
+			}*/
 			
 			// timeblocks should be an array of times
 
 			$timeBlockHtml = '<ul id="pages">';
 			for($i=0; $i < count($timeblocks); $i++) {
-				$timeBlockHtml .= '<li><a href="content.php?time='.($timeblocks[$i]*60).'" class="pageButton" data-role="button" data-ajax="false">';
+				$timeBlockHtml .= '<li><a href="content.php?time='.($timeblocks[$i]*60).'" class="pageButton" data-theme="a" data-role="button" data-ajax="false">';
 				$timeBlockHtml .= 'I have ' . $timeblocks[$i] . ' minutes!</a></li>';
 			}	
 	
@@ -71,11 +72,20 @@
 
 	<div data-role="content">
 		<h2>Welcome <?php echo $_SESSION['username']; ?> </h2>
+		<h3>How much time do you have?</h3>
+		<p><b>Choose from your preset TimeBlocks:</b></p>
 		<?php echo $timeBlockHtml; ?>
+		<form name="taskform" id="taskform" action="newtime.php" method="post" data-ajax="false">
+			<label for="timewanted"><b>Or input a new time (in minutes):</b></label>
+			<input type="range" name="time" id="timewanted" value="1" min="1" max="60" data-highlight="true" data-mini="true" />
+			<input type="submit" id="sbmt" value="Go!" data-disabled="false" data-inline="true" data-theme="b"/>
+		</form>
+				
 	</div><!-- /content -->
 	<div data-role="popup" id="help">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-	...popup contents go here...
+		<p>Get started by choosing the amount of free time you have either from the preset timeblocks you created or by dragging the slider to the desired number in minutes and clicking "go"!. </p>
+		<p>Upon selecting the amount of free time you have, you will be given a story based on this amount of time and the items you indicated in your tasklist.</p> 	
 	</div>
 	<?php include('footer.php'); ?>
 </div>

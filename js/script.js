@@ -9,6 +9,7 @@ var thTimer = {};
 thTimer.minutes = 0;
 thTimer.seconds = 0;
 thTimer.timer = '';
+thTimer.nextHeader = '';
 thTimer.nextPage = '';
 thTimer.show = true;
 
@@ -29,6 +30,12 @@ thTimer.tick = function() {
 	if(thTimer.show) thTimer.updateDisplay();
 }
 
+thTimer.setHref = function() {
+	var timeLeftInSeconds = thTimer.minutes * 60 + thTimer.seconds;
+	thTimer.nextPage.href = "content.php?time=" + timeLeftInSeconds;
+	thTimer.nextHeader.href = thTimer.nextPage.href;
+}
+
 thTimer.updateDisplay = function() {
 	var seconds = thTimer.seconds;
 	if(seconds == 60) {
@@ -45,8 +52,6 @@ thTimer.updateDisplay = function() {
 	}
 	
 	thTimer.timer.innerHTML = minutes + ':'+ seconds;
-	var timeLeftInSeconds = thTimer.minutes * 60 + thTimer.seconds;
-	thTimer.nextPage.href = "content.php?time=" + timeLeftInSeconds;
 }
 
 thTimer.toggleDisplay = function() {
@@ -58,7 +63,8 @@ thTimer.toggleDisplay = function() {
 	}
 }
 
-thTimer.initTimer = function(next, id, time) {
+thTimer.initTimer = function(nextHeader, next, id, time) {
+	thTimer.nextHeader = document.getElementById(nextHeader);
 	thTimer.nextPage = document.getElementById(next);
 	console.log(thTimer.nextPage);
 	thTimer.timer = document.getElementById(id);
