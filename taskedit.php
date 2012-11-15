@@ -95,7 +95,7 @@
 							}
 						} 
 						else {
-							$("#category").append("<option class='iii' value='auto'>Auto</option><option class='iii' value='animals'>Animals</option><option class='iii' value='comedy'>Comedy</option><option class='iii' value='entertainment'>Entertainment</option><option class='iii' value='games'>Games</option><option class='iii' value='howto'>How-To</option><option class='iii' value='movies'>Movies</option><option class='iii' value='news'>News</option><option class='iii' value='people'>People</option><option class='iii' value='sports'>Sports</option><option class='iii' value='trailers'>Trailers</option><option class='iii' value='travel'>Travel</option>");
+							$("#category").append("<option class='iii' value='auto'>Autos</option><option class='iii' value='animals'>Animals</option><option class='iii' value='comedy'>Comedy</option><option class='iii' value='entertainment'>Entertainment</option><option class='iii' value='games'>Games</option><option class='iii' value='howto'>How-To</option><option class='iii' value='movies'>Movies</option><option class='iii' value='news'>News</option><option class='iii' value='people'>People</option><option class='iii' value='sports'>Sports</option><option class='iii' value='trailers'>Trailers</option><option class='iii' value='travel'>Travel</option>");
 						}
 					}
 
