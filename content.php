@@ -15,13 +15,17 @@
 	$_SESSION['source_medium'] = array(WP=>T, E=>T, NYT=>T, YT=>V);
 
 	$timeLeft = intval($_GET['time']) * 60;
-	//$timeLeft = 350; //For testing.
 
 	while(true){
+		if(count($_SESSION['list']) <= 0){
+			$title = "No websites have been selected!"
+			break 1;
+		}
 			while(true){
 				$numSources = count($_SESSION['sources']);
 				for($i = 0; $i < $numSources; $i++){
 					$source = $_SESSION['sources'][$i];
+					if($source == "youtube")$source = "Youtube";
 					$priority = $_SESSION['list'][$source];
 					$chance = rand(0, 9);
 					if($priority == 1) $chance -= 8;
@@ -29,7 +33,7 @@
 					if($priority == 3) $chance -= 4;
 					//Find a better way to do priorities if there is time.
 					
-					if($chance >= 1 && $_SESSION['list'][$source] != null){
+					if($chance >= 1 && $priority != null){
 						$numCategories = count($_SESSION['categories'][$source]);
 						$index = rand(0, ($numCategories - 1));
 						$category = $_SESSION['categories'][$source][$index];
@@ -37,7 +41,7 @@
 					}
 				}
 			}
-
+		if($source == "Youtube") $source = "youtube";
 		$query = "SELECT * FROM ".$source." WHERE category = '".$category."' AND duration <=".$timeLeft." LIMIT 10";
 		if($result = mysql_query($query)){
 			//At least one result must exist.
@@ -83,7 +87,8 @@
 			$_SESSION['last_source'] = $source;
 			if($source == "washingtonpost") echo "The Washington Post";
 			if($source == "economist") echo "The Economist";
-			if($source == "nytimes") echo "The New York Times"
+			if($source == "nytimes") echo "The New York Times";
+			if($source == "youtube") echo "YouTube";
 			 ?> 
 		</h1>
 		<h2><?php 
