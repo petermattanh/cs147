@@ -13,19 +13,23 @@
 	//Session storage should be defined by the time this page is reached: 'lists' and 'categories'
 	$_SESSION['sources'] = array(WP, E, NYT, YT);
 	$_SESSION['source_medium'] = array(WP=>T, E=>T, NYT=>T, YT=>V);
+	$maxTries = 10;
 
 	$timeLeft = intval($_GET['time']) * 60;
 
-	while(true){
-		if(count($_SESSION['list']) <= 0){
-			$title = "No websites have been selected!"
+
+	for($numQueries = 0; $numQueries < $maxTries; $numQueries++){
+		if(count($_SESSION['list'])<= 0){
+			$title = "No websites have been selected!";
 			break 1;
 		}
-			while(true){
+	
+	
+			for($numTries = 0; $numTries < $maxTries; $numTries++){
 				$numSources = count($_SESSION['sources']);
 				for($i = 0; $i < $numSources; $i++){
 					$source = $_SESSION['sources'][$i];
-					if($source == "youtube")$source = "Youtube";
+					if($source == "youtube") $source = "Youtube";//Crappy modularity here
 					$priority = $_SESSION['list'][$source];
 					$chance = rand(0, 9);
 					if($priority == 1) $chance -= 8;
@@ -41,7 +45,7 @@
 					}
 				}
 			}
-		if($source == "Youtube") $source = "youtube";
+		if($source == "Youtube") $source = "youtube"; //Crappy modularity here
 		$query = "SELECT * FROM ".$source." WHERE category = '".$category."' AND duration <=".$timeLeft." LIMIT 10";
 		if($result = mysql_query($query)){
 			//At least one result must exist.
@@ -92,13 +96,42 @@
 			 ?> 
 		</h1>
 		<h2><?php 
+		
 			$_SESSION['last_title'] = $storyTitle;
 			echo $storyTitle; 
 			?></h2>
-	
+		<p><?php
+		/* Trying to find weird cases.
+		
+		echo "<h3>Running tests:</h3>";
+			for($i = 0; $i < count($_SESSION['sources']); $i++){
+				echo "<br/> source: ";
+				$source = $_SESSION['sources'][$i];
+				echo $source;
+				echo "<br/> priority: ";
+				$priority = $_SESSION['list'][$source];
+				echo $priority;
+				
+				echo "<br/> categories";
+				for($j = 0; $j < count($_SESSION['categories'][$source]); $j++){
+					echo $_SESSION['categories'][$source][$j];
+					echo ",";
+				}
+			}
+			echo "youtube caps";
+			echo $_SESSION['list']["Youtube"];
+			for($j = 0; $j < count($_SESSION['categories']["Youtube"]); $j++){
+					echo $_SESSION['categories']["Youtube"][$j];
+					echo ",";
+			}
+			*/
+		?></p>
+		
 		<?php
 			$_SESSION['last_content'] = $content_medium;
-			if($content_medium == "video") echo "<iframe width='420' height='315' src='http://www.youtube.com/embed/".$row['videoId']."' frameborder='0' allowfullscreen></iframe>";
+			if($content_medium == "video") {
+				echo "<iframe width='420' height='315' src='http://www.youtube.com/embed/".$row['videoId']."' frameborder='0' allowfullscreen></iframe>";
+			}
 			if($content_medium == "text") echo $row['content'];
 		?>
 		<p>
