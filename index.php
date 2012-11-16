@@ -27,6 +27,15 @@
 			}
 			$stmt->close();
 			
+			if(!$timeblocks || empty($timeblocks)) {
+				$timeblocks = array(5, 10, 15);
+				$timeblocksStr = serialize($timeblocks);
+				$stmt = $mysqli->stmt_init();
+				$stmt->prepare("UPDATE users SET timeblock=? WHERE id=?");
+				$stmt->bind_param('si', $timeblocksStr, $userData['user_id']);
+				$stmt->execute();
+				$stmt->close();
+			}
 			// timeblocks should be an array of times
 
 			$timeBlockHtml = '<ul id="pages">';
