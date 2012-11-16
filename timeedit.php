@@ -32,6 +32,32 @@
 		
 	</div><!-- /content -->
 	<div data-role="popup" id="help">
+		<h2> Time Edit Help </h2>
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<div data-role="collapsible-set">
+
+			<div data-role="collapsible">
+				<h3>What am I doing here?</h3>
+				<p>You're here to add or delete time blocks.</p>
+				<div data-role="collapsible">
+					<h3>How do I do it?</h3>
+					<div data-role="collapsible">
+						<h3>Add Time</h3>
+						<p></p>
+					</div>
+					<div data-role="collapsible">
+						<h3>Delete Time</h3>
+						</p></p>
+					</div>		
+				</div>
+			</div>
+			<div data-role="collapsible">
+				<h3>Other tips</h3>
+				<p> Tips </p>
+			</div>
+	
+		</div>
+	<?php /*
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 	<p>Are there certain amounts of time that you know you'll have free on a regular basis? If so, add them to your list of time blocks to avoid having to manually input them each time!</p>
 	<p><b>To add:</b> Drag the slider bar to the desired amount of time (the time is indicated in minutes), and click "Add Timeblock!" to add it to your list of free time chunks! </p>
@@ -40,6 +66,8 @@
 			if(!isset($_SESSION['last_page'])) {
 			echo '<p> When finished, click "Finished" to return to the settings menu! </p>';
 		}
+	?>
+	*/
 	?>
 	</div>
 	<?php include('settings_footer.php'); ?>

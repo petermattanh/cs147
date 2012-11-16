@@ -20,15 +20,3 @@
 		 	}
 		 }
 	?>
-
-<script type="text/javascript">
-
-/* The script below will insert the username wherever it finds the
- * #username id */
-if($.cookie('username') != null){//This checks whether the username cookie exists.
-	$('#username').text($.cookie('username'));
-} else {
-	$('#username').text("ERROR: NO USERNAME FOUND");
-}
-
-</script>

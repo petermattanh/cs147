@@ -123,6 +123,33 @@
 
 	</div><!-- /content -->
 	<div data-role="popup" id="help">
+		<h2> Task Edit Help </h2>
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<div data-role="collapsible-set">
+
+			<div data-role="collapsible">
+				<h3>What am I doing here?</h3>
+				<p>You're here to add or delete a list of things you want to read or watch.</p>
+				<div data-role="collapsible">
+					<h3>How do I do it?</h3>
+					<div data-role="collapsible">
+						<h3>Add Task</h3>
+						<p></p>
+					</div>
+					<div data-role="collapsible">
+						<h3>Delete Task</h3>
+						</p></p>
+					</div>		
+				</div>
+			</div>
+			<div data-role="collapsible">
+				<h3>Other tips</h3>
+				<p> Tips </p>
+			</div>
+	
+		</div>
+		<?php
+		/*
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<p>Set up a list of tasks that you would like to do in your free time and rank their importance!</p>
 		<p><b>Adding:</b></p>
@@ -133,6 +160,8 @@
 		<p>Please note that you cannot proceed to the next step without completing the previous one!</p>
 		<p><b>Deleting:</b></p>
 		<p>Click on the button with the task you want to delete inside the tasklist to remove it.</p>
+		*/
+		?>
 			<?php
 			if(!isset($_SESSION['last_page'])) {
 			echo '<p> When finished, click "Finished" to return to the settings menu! </p>';

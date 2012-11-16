@@ -50,30 +50,31 @@ http://googlesystem.blogspot.com/2008/01/youtube-feeds.html
 http://www.ibm.com/developerworks/xml/library/x-youtubeapi/
 */
 	$yt = new YoutubeScraper();
-	// $yt->updateDatabase('Autos', 'medium');
-	// $yt->updateDatabase('Autos', 'short');
-	// $yt->updateDatabase('Animals', 'medium');
-	// $yt->updateDatabase('Animals', 'short');
-	// $yt->updateDatabase('Sports', 'medium');
-	// $yt->updateDatabase('Sports', 'short');
-	// $yt->updateDatabase('Travel', 'medium');
-	// $yt->updateDatabase('Travel', 'short');
-	// $yt->updateDatabase('Games', 'medium');
-	// $yt->updateDatabase('Games', 'short');
-	// $yt->updateDatabase('People', 'medium');
-	// $yt->updateDatabase('People', 'short');
-	// $yt->updateDatabase('Comedy', 'short');
-	// $yt->updateDatabase('Comedy', 'medium');
-	// $yt->updateDatabase('Entertainment', 'short');
-	// $yt->updateDatabase('Entertainment', 'medium');
-	// $yt->updateDatabase('News', 'short');
-	// $yt->updateDatabase('News', 'medium');
-	// $yt->updateDatabase('Howto', 'short');
-	// $yt->updateDatabase('Howto', 'medium');
-	// $yt->updateDatabase('Movies', 'short');
-	// $yt->updateDatabase('Movies', 'medium');
-	// $yt->updateDatabase('Trailers', 'short');
-	// $yt->updateDatabase('Trailers', 'medium');
+	
+	$yt->updateDatabase('Autos', 'medium');
+	$yt->updateDatabase('Autos', 'short');
+	$yt->updateDatabase('Animals', 'medium');
+	$yt->updateDatabase('Animals', 'short');
+	$yt->updateDatabase('Sports', 'medium');
+	$yt->updateDatabase('Sports', 'short');
+	$yt->updateDatabase('Travel', 'medium');
+	$yt->updateDatabase('Travel', 'short');
+	$yt->updateDatabase('Games', 'medium');
+	$yt->updateDatabase('Games', 'short');
+	$yt->updateDatabase('People', 'medium');
+	$yt->updateDatabase('People', 'short');
+	$yt->updateDatabase('Comedy', 'short');
+	$yt->updateDatabase('Comedy', 'medium');
+	$yt->updateDatabase('Entertainment', 'short');
+	$yt->updateDatabase('Entertainment', 'medium');
+	$yt->updateDatabase('News', 'short');
+	$yt->updateDatabase('News', 'medium');
+	$yt->updateDatabase('Howto', 'short');
+	$yt->updateDatabase('Howto', 'medium');
+	$yt->updateDatabase('Movies', 'short');
+	$yt->updateDatabase('Movies', 'medium');
+	$yt->updateDatabase('Trailers', 'short');
+	$yt->updateDatabase('Trailers', 'medium');
 
 
 	class YoutubeScraper {
@@ -113,12 +114,17 @@ http://www.ibm.com/developerworks/xml/library/x-youtubeapi/
 			}
 			echo 'DONE!';
 			$stmt->close();
+			$mysqli->close();
 		}
 
 		private function getVideos($category, $duration) {
-			$feedUrl = 'http://gdata.youtube.com/feeds/api/videos/?max-results=5&category=' . $category . '&duration='.$duration.'&v=2';
+			$feedUrl = 'https://gdata.youtube.com/feeds/api/videos?category='.$category;
 			$sxml = simplexml_load_file($feedUrl);
-
+			include('../../connect.php');
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare("SELECT COUNT(id) FROM youtube where videoId=?");
+			$stmt->bind_param('s', $videoId);
+			$stmt->bind_result($count);
 			foreach($sxml->entry as $entry) {
 				// get nodes in media: namespace for media information
 				$media = $entry->children('http://search.yahoo.com/mrss/');
@@ -133,6 +139,11 @@ http://www.ibm.com/developerworks/xml/library/x-youtubeapi/
 				$end      = strpos($videoUrl, '&', $start+1);
 				$videoId  = substr($videoUrl, $start+1, $end-$start-1);
 
+				$stmt->execute();
+				$stmt->fetch();
+				if($count > 0) {
+					continue;
+				}
 				// description
 				$description = $media->group->description;
 
@@ -167,5 +178,7 @@ http://www.ibm.com/developerworks/xml/library/x-youtubeapi/
 						'views'      => $views,
 						'rating'     => $rating);
 			}
+			$stmt->close();
+			$mysqli->close();
 		}
 	}

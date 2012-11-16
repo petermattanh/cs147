@@ -27,6 +27,15 @@
 			}
 			$stmt->close();
 			
+			if(!$timeblocks || empty($timeblocks)) {
+				$timeblocks = array(5, 10, 15);
+				$timeblocksStr = serialize(($timeblocks));
+				$stmt = $mysqli->stmt_init();
+				$stmt->prepare("UPDATE users SET timeblock=? WHERE id=?");
+				$stmt->bind_param('si', $timeblocksStr, $userData['user_id']);
+				$stmt->execute();
+				$stmt->close();
+			}
 			// timeblocks should be an array of times
 
 			$timeBlockHtml = '<ul id="pages">';
@@ -73,9 +82,36 @@
 				
 	</div><!-- /content -->
 	<div data-role="popup" id="help">
+		<h2> Home Page Help </h2>
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<div data-role="collapsible-set">
+
+			<div data-role="collapsible">
+				<h3>What am I doing here?</h3>
+				<p>You're here to add or delete time blocks.</p>
+				<div data-role="collapsible">
+					<h3>How do I do it?</h3>
+					<div data-role="collapsible">
+						<h3>Add Time</h3>
+						<p></p>
+					</div>
+					<div data-role="collapsible">
+						<h3>Delete Time</h3>
+						</p></p>
+					</div>		
+				</div>
+			</div>
+			<div data-role="collapsible">
+				<h3>Other tips</h3>
+				<p> Tips </p>
+			</div>
+	
+		</div>
+		<?php /*
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<p>Get started by choosing the amount of free time you have either from the preset timeblocks you created or by dragging the slider to the desired number in minutes and clicking "go"!. </p>
 		<p>Upon selecting the amount of free time you have, you will be given a story based on this amount of time and the items you indicated in your tasklist.</p> 	
+		*/ ?>
 	</div>
 	<?php include('footer.php'); ?>
 </div>

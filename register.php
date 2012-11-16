@@ -6,7 +6,8 @@
 
 <div data-role="page" data-theme="a" id="register">
 
-      <div data-role="header" data-theme="a">
+   <div data-role="header" data-theme="a">
+      <a href="login.php" data-role="button" data-ajax="false" data-icon="back" class="ui-btn-left">Back to login</a>
       <h1>Registration</h1>
    </div><!-- /header -->
    
@@ -43,7 +44,7 @@
          </div>
        
          <div data-role="fieldcontain" data-theme="a">
-         	<legend>Would you like to initialize your user settings now or skip this step and use our default settings (you can change these at a later time)? <p>Click the "i" button for more info on what these settings are. <a href="#sethelp" data-role="button" data-icon="info" data-iconpos="notext" data-rel="popup" data-inline="true">sethelp</a></p></legend>
+         	<legend>Would you like to initialize your user settings now or skip this step and use our default settings (you can change these at a later time)? <p><a href="#sethelp" data-role="button" data-icon="info" data-iconpos="notext" data-rel="popup" data-inline="true">sethelp</a> Click for more info.</p></legend>
          	<fieldset data-role="controlgroup" data-mini="true">
     			<input type="radio" name="default" id="own" value="no" checked="checked" />
     			<label for="own">Self Initialize</label>
