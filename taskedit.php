@@ -30,7 +30,7 @@
 					</select>
 					<label for="source">Source</label>
 					<select name="source" id="source" disabled>
-					<option>2. Pick the site you wan to see.</option>
+					<option>2. Pick the site you want to see.</option>
 					</select>
 					<label for="category">Category</label>
 					<select name="category" id="category" disabled>
