@@ -9,11 +9,11 @@
 
 <div data-role="page" data-theme="a" id="timeedit" class="buttonNav" data-add-back-btn="true">
 	<div data-role="header" data-theme="a">
-		<h1>Edit TimeList!</h1>
+		<h1>Edit Times!</h1>
 	</div><!-- /header -->
 	<?php
 		if(isset($_SESSION['last_page'])) {
-			echo '<p> Your tasklist has been successfully saved! Now set up your time blocks! </p>';
+			echo '<p> Your preferences have been saved! Now pick a time to spend on your activity. </p>';
 			$_SESSION['last_page'] = 1;
 		}
 	?>
@@ -23,10 +23,10 @@
 				<div data-role="fieldcontain" data-theme="a">
 					<label for="timeblock">Free Time (in minutes):</label>
  					<input type="range" name="timeblock" id="slider" data-highlight="true" data-theme="b" value="1" min="1" max="60" /><br><br>
- 					<input type="submit" value="Add Timeblock!" data-disabled="false"/>
+ 					<input type="submit" value="Add this time!" data-disabled="false"/>
 				</div>				
 				</form>
-				<h2>Your TimeBlocks:</h2>
+				<h2>Your Times:</h2>
 
 			<?php echo $timeBlockHtml; ?>
 		
