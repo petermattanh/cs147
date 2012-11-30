@@ -10,7 +10,7 @@
 
 <div data-role="page" data-theme="a" id="taskedit" class="buttonNav" data-add-back-btn="true">
 	<div data-role="header" data-theme="a">
-		<h1>Edit TaskList!</h1>
+		<h1>Edit Your Activities!</h1>
 	</div><!-- /header -->
 	<?php
 		if(isset($_SESSION['last_page'])) {
@@ -45,7 +45,7 @@
 					</select>
 				</fieldset>	
 				<div data-role="fieldcontain" data-theme="b">
-					<input type="submit" id="sbmt" value="Add This Preference!" data-disabled="false" data-theme="b" disabled/>
+					<input type="submit" id="sbmt" value="Save this actvity!" data-disabled="false" data-theme="b" disabled/>
 				</div>
 				<script>
 					$('#todo').change(function() {
