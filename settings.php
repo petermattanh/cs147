@@ -9,10 +9,10 @@
 		
 			<div data-role="content" data-theme="a">
 				<div data-role="fieldcontain" data-theme="a">
-					<a href="taskedit.php" data-role="button" data-ajax="false">Edit Tasklist</a>
+					<a href="taskedit.php" data-role="button" data-ajax="false">Edit Activities</a>
 				</div>
 				<div data-role="fieldcontain" data-theme="a">
-					<a href="timeedit.php" data-role="button" data-ajax="false">Edit Time Blocks</a>
+					<a href="timeedit.php" data-role="button" data-ajax="false">Edit Times</a>
 				</div><br>
 				<div data-role="fieldcontain" data-theme="b">
 					<a href="index.php" data-role="button" data-ajax="false">Finished Editing!</a>
