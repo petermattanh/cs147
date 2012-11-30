@@ -72,7 +72,7 @@
 	<div data-role="content">
 		<h2>Welcome <?php echo $_SESSION['username']; ?> </h2>
 		<h3>How much time do you have?</h3>
-		<p><b>Choose from your preset TimeBlocks:</b></p>
+		<p><b>Choose from your preset times:</b></p>
 		<?php echo $timeBlockHtml; ?>
 		<form name="taskform" id="taskform" action="newtime.php" method="post" data-ajax="false">
 			<label for="timewanted"><b>Or input a new time (in minutes):</b></label>
