@@ -14,7 +14,7 @@
 	</div><!-- /header -->
 	<?php
 		if(isset($_SESSION['last_page'])) {
-			echo '<p> Congratualtions! You have successfully registered! Now get started by setting up your TaskList! </p>';
+			echo '<p> You have successfully registered! To get started, choose what content you want to see. </p>';
 			$_SESSION['last_page'] = 2;
 		}
 	?>
@@ -24,28 +24,28 @@
 				<fieldset data-role="controlgroup" class="ui-hide-label">
 					<label for="todo">Task</label>
 					<select name="todo" id="todo">
-					<option>1. Choose your task.</option>
+					<option>1. Pick what you would like to do.</option>
   						<option value="read">Read</option>
   						<option value="watch">Watch</option>
 					</select>
 					<label for="source">Source</label>
 					<select name="source" id="source" disabled>
-					<option>2. Choose your source.</option>
+					<option>2. Pick the site you wan to see.</option>
 					</select>
 					<label for="category">Category</label>
 					<select name="category" id="category" disabled>
-					<option>3. Choose your category.</option>
+					<option>3. Pick the type of things you want to see.</option>
 					</select>
 					<label for="priority">Priority</label>
 					<select name="priority" id="priority" disabled>
-					<option>4. Assign a priority rating.</option>
-					<option value="3">High</option>
-					<option value="2">Medium</option>
-					<option value="1">Low</option>
+					<option>4. Pick how often you want to see it.</option>
+					<option value="3">Often</option>
+					<option value="2">Sometimes</option>
+					<option value="1">Rarely</option>
 					</select>
 				</fieldset>	
 				<div data-role="fieldcontain" data-theme="b">
-					<input type="submit" id="sbmt" value="Add To List!" data-disabled="false" data-theme="b" disabled/>
+					<input type="submit" id="sbmt" value="Add This Preference!" data-disabled="false" data-theme="b" disabled/>
 				</div>
 				<script>
 					$('#todo').change(function() {
