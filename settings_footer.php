@@ -2,9 +2,9 @@
 	<div data-role="navbar" class="nav-glyphish-example" data-grid="b">
 		<ul>
 			<li><form action="logout.php" method="post" data-ajax="false"><input type="submit" value="Log Out" data-theme="b" data-disabled="false"/></form></li>
-			<li><a href="#help" class="pageButton" data-role="button" data-theme="b" data-rel="popup">Help</a></li>
+			<li><a href="#help" class="pageButton" data-role="button" data-theme="b" data-rel="popup" data-position-to="window">Help</a></li>
 
-			<li><a href="index.php#settings" id="next" class="pageButton" data-role="button" data-theme="b" data-ajax="false">Finished Editing</a></li>
+			<li><a href="index.php#settings" id="next" class="pageButton" data-role="button" data-theme="b" data-ajax="false">Finished!</a></li>
 			
 		</ul>
 	</div>
@@ -20,15 +20,3 @@
 		 	}
 		 }
 	?>
-
-<script type="text/javascript">
-
-/* The script below will insert the username wherever it finds the
- * #username id */
-if($.cookie('username') != null){//This checks whether the username cookie exists.
-	$('#username').text($.cookie('username'));
-} else {
-	$('#username').text("ERROR: NO USERNAME FOUND");
-}
-
-</script>

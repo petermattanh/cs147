@@ -9,7 +9,9 @@
 	$stmt = $mysqli->stmt_init();
 	$stmt->prepare("INSERT INTO users(username, password) VALUES(?, ?)");
 	$stmt->bind_param("ss", $username, $password);
-	$stmt->execute();
+	if(!$stmt->execute()) {
+		die($stmt->error);
+	}
 	$stmt->close();
 
 	$id = $mysqli->stmt_init();
@@ -24,7 +26,9 @@
 		"user_id" => $userId,
 		"init" => true);
 	$_SESSION['data'] = $userData;
+	
 	$userDataStr = serialize($userData);
+
 	setcookie('user', $userDataStr, $expire);
 	// redirect back to home page
 	
@@ -74,9 +78,13 @@
 		$catUpdate->close();
 	}
 	$cookie = $mysqli->stmt_init();
-	$cookie->prepare("UPDATE users SET cookie=? WHERE id=?");
+	if(!$cookie->prepare("UPDATE users SET cookie=? WHERE id=?")) {
+		die($cookie->error);
+	}
 	$cookie->bind_param('si', $userDataStr, $userId);
-	$cookie->execute();
+	if(!$cookie->execute()) {
+		die($cookie->error);
+	}
 	$cookie->close();
 	$mysqli->close();
 	$_SESSION['last_page'] = 1;

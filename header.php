@@ -15,10 +15,10 @@
 	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 
-
+	<script src="//cdn.optimizely.com/js/139222886.js"></script>
 	<!-- add app icon and startup image later -->
 	<!-- <link rel="apple-touch-icon" href="appicon.png" /> -->
 	<!-- <link rel="apple-touch-startup-image" href="startup.png"> -->
-
+	
 	<script src="js/script.js"></script>
 </head> 

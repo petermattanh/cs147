@@ -18,8 +18,8 @@ thTimer.tick = function() {
 	if(thTimer.seconds < 0) {
 		thTimer.minutes--;
 		if(thTimer.minutes < 0) {
-			// time is up
-			//alert('yo!');
+			$("#snooze").popup("open");
+			$("#mask").fadeIn(500);
 			return;
 		} else {
 			thTimer.seconds = 59;
@@ -63,10 +63,17 @@ thTimer.toggleDisplay = function() {
 	}
 }
 
+thTimer.procrastinate = function() {
+	thTimer.seconds = 0;
+	thTimer.minutes = 5;
+	$("#snooze").popup('close');
+	$("#mask").fadeOut(500);
+	window.setTimeout("thTimer.tick()", 1000);
+}
+
 thTimer.initTimer = function(nextHeader, next, id, time) {
 	thTimer.nextHeader = document.getElementById(nextHeader);
 	thTimer.nextPage = document.getElementById(next);
-	console.log(thTimer.nextPage);
 	thTimer.timer = document.getElementById(id);
 	thTimer.minutes = Math.floor(time/60);
 	thTimer.seconds = time % 60;

@@ -6,7 +6,7 @@
 				</form>
 			</li>
 			<li><a href="#settings" class="pageButton" data-ajax="false" data-role="button">Settings</a></li>
-			<li><a href="#help" class="pageButton" data-role="button" data-rel="popup">Help</a></li>
+			<li><a href="#help" class="pageButton" data-role="button" data-theme="b" data-rel="popup" data-position-to="window">Help</a></li>
 
 		</ul>
 	</div>

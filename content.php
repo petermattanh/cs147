@@ -15,17 +15,17 @@
 	$_SESSION['source_medium'] = array(WP=>T, E=>T, NYT=>T, YT=>V);
 	$maxTries = 10;
 
-	$timeLeft = intval($_GET['time']) * 60;
+	$timeLeft = intval($_GET['time']);
 
 
-	for($numQueries = 0; $numQueries < $maxTries; $numQueries++){
+	for($numQueries = 0; $numQueries < $maxTries; $numQueries++) {
 		if(count($_SESSION['list'])<= 0){
 			$title = "No websites have been selected!";
 			break 1;
 		}
 	
 	
-			for($numTries = 0; $numTries < $maxTries; $numTries++){
+			for($numTries = 0; $numTries < $maxTries; $numTries++) {
 				$numSources = count($_SESSION['sources']);
 				for($i = 0; $i < $numSources; $i++){
 					$source = $_SESSION['sources'][$i];
@@ -46,6 +46,7 @@
 				}
 			}
 		if($source == "Youtube") $source = "youtube"; //Crappy modularity here
+		if($source == 'economist' && $category == 'business') $category .= '-finance';
 		$query = "SELECT * FROM ".$source." WHERE category = '".$category."' AND duration <=".$timeLeft." LIMIT 10";
 		if($result = mysql_query($query)){
 			//At least one result must exist.
@@ -87,7 +88,8 @@
 	</div><!-- /header -->
 
 	<div data-role="content">
-		<h1> <?php
+		<?php include('snooze_popup.php'); ?>
+		<h1 style="font-family:'Impact';"> <?php
 			$_SESSION['last_source'] = $source;
 			if($source == "washingtonpost") echo "The Washington Post";
 			if($source == "economist") echo "The Economist";
@@ -95,40 +97,11 @@
 			if($source == "youtube") echo "YouTube";
 			 ?> 
 		</h1>
-		<h2><?php 
-		
-			$_SESSION['last_title'] = $storyTitle;
-			echo $storyTitle; 
+		<h2 style="font-family:'Charcoal';"><?php 
+					echo $storyTitle; 
 			?></h2>
-		<p><?php
-		/* Trying to find weird cases.
-		
-		echo "<h3>Running tests:</h3>";
-			for($i = 0; $i < count($_SESSION['sources']); $i++){
-				echo "<br/> source: ";
-				$source = $_SESSION['sources'][$i];
-				echo $source;
-				echo "<br/> priority: ";
-				$priority = $_SESSION['list'][$source];
-				echo $priority;
-				
-				echo "<br/> categories";
-				for($j = 0; $j < count($_SESSION['categories'][$source]); $j++){
-					echo $_SESSION['categories'][$source][$j];
-					echo ",";
-				}
-			}
-			echo "youtube caps";
-			echo $_SESSION['list']["Youtube"];
-			for($j = 0; $j < count($_SESSION['categories']["Youtube"]); $j++){
-					echo $_SESSION['categories']["Youtube"][$j];
-					echo ",";
-			}
-			*/
-		?></p>
 		
 		<?php
-			$_SESSION['last_content'] = $content_medium;
 			if($content_medium == "video") {
 				echo "<iframe width='420' height='315' src='http://www.youtube.com/embed/".$row['videoId']."' frameborder='0' allowfullscreen></iframe>";
 			}
@@ -139,11 +112,31 @@
 		</p>
 	</div><!-- /content -->
 	<div data-role="popup" id="help">
+		<h2> Content Help </h2>
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<div data-role="collapsible-set">
+
+			<div data-role="collapsible">
+				<h3>What am I doing here?</h3>
+				<p>Welcome to the contents page! Here, you will be shown materials to read or watched based on the items you added to your task list and the amount of free time you indicated you have.The timer at the top right hand corner keeps track of how much time has elapsed.</p>
+			</div>
+			
+			<div data-role="collapsible">
+				<h3>Tips</h3>
+				<p><b>Timer:</b> The timer at the top right hand corner keeps track of how much time has elapsed. Click on the timer to hide it. Alternatively, tap the screen once to hide the entire header. Tap the screen again to bring the header back.</p>
+				<p><b>Home:</b> To navigate back to the home screen to change your desired time block, simply click the "home" button.
+
+				<p><b>Next:</b> Click "next" to go navigate to new content if you want to skip or have finished viewing this content.</p>
+			</div>
+	
+		</div>
+		<?php /*
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<p>Welcome to the contents page! Here, you will be shown materials to read or watched based on the items you added to your task list and the amount of free time you indicated you have. The timer at the top right hand corner keeps track of how much time has elapsed. Click on the timer to hide it. Alternatively, tap the screen once to hide the entire header. Tap the screen again to bring the header back.
 		<p><b>Home:</b> To navigate back to the home screen to change your desired time block, simply click the "home" button.
 
 		<p><b>Next:</b> Click "next" to go navigate to new content if you want to skip or have finished viewing this content.</p>
+		*/ ?>
 	</div>
 
 	<?php include('footer.php'); ?>
